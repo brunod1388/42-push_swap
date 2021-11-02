@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@42lausanne.ch>          +#+  +:+       +#+        */
+/*   By: bgoncalv <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:33:45 by bgoncalv          #+#    #+#             */
 /*   Updated: 2021/10/25 17:33:48 by bgoncalv         ###   ########.fr       */

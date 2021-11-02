@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgoncalv <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -17,11 +17,15 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	char	*d;
 	size_t	dlen;
 
-	if (start > ft_strlen(s))
+	if (!s)
 		return (NULL);
+	if (ft_strlen(s) < start)
+		return (ft_strdup(""));
 	dlen = ft_strlen(s) - start;
 	if (dlen > len)
 		dlen = len;
+	else if (dlen < 0)
+		dlen = 0;
 	d = malloc(dlen + 1);
 	if (d == NULL)
 		return (NULL);

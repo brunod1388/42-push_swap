@@ -3,37 +3,46 @@ CFLAGS		= -Wall -Wextra -Werror
 
 SRCS_DIR	= srcs
 OBJS_DIR	= bin
-INCLUDES	= -I./includes
+INCLUDES	= -I./includes -I./libft
+LIBS		= -L./libft -lft
 TESTS_DIR	= tests
 
 SRCS		= $(SRCS_DIR)/*.c
-OBJS		= ${$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o}
+TESTS_SRCS	= $(TESTS_DIR)/*.c
+
+OBJS		:= $(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS))
+TESTS_OBJS	:= $(patsubst $(TESTS_DIR)/%.c, $(TESTS_DIR)/%.o, $(TESTS_SRCS))
 TESTS		= $(TESTS_DIR)/*.c
 NAME		= ft_printf.a
-TEST_NAME	= test
+TEST_NAME	= $(TESTS_DIR)/test
 
 $(NAME):	$(OBJS)
-			$(MAKE) bonus -C ./libft
-			ar -rcs $(NAME) $(OBJS)
+			make bonus -C ./libft
+			ar rcs $(NAME) $(OBJS)
 			ranlib $(NAME)
 
 all:		$(NAME)
 
+$(TESTS_DIR)/%.o:	$(TESTS_DIR)/%.c
+					$(CC) $(CFLAGS) $(INCLUDES) -o $@ $< -c
+
+$(OBJS_DIR)/%.o:	$(SRCS_DIR)/%.c
+					$(CC) $(CFLAGS) $(INCLUDES) -o $@ $< -c
+
 re:			fclean $(NAME)
 
-clean:		
+clean:
 			$(RM) $(OBJS)
 
 fclean:		clean
 			rm -f $(NAME)
 
-test:		$(NAME)
-			$(CC) $(CFLAGS) $(INCLUDES) -o $(NAME) $(OBJS)
+test:		all $(TESTS_OBJS)
+			$(CC) $(CFLAGS) $(INCLUDES) $(LIBS) -o $(TEST_NAME) $(TESTS_OBJS) $(OBJS)
 
-retest:		fclean $(TEST)
-			rm ./test/test
-			make re
-			$(CC) $(CFLAGS) $(INCLUDES) -o $(NAME) $(OBJS)
-			./test/test
+retest:		fclean
+			rm -f $(TEST_NAME)
+			make test
+			./$(TEST_NAME)
 
 .PHONY:		all re clean fclean bin test

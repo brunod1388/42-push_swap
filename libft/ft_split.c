@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgoncalv <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -17,7 +17,7 @@ static size_t	ft_next_charset(const char *s, char c)
 	size_t	i;
 
 	i = 0;
-	while(s[i] && s[i] != c)
+	while (s[i] && s[i] != c)
 		i++;
 	return (i);
 }
@@ -45,6 +45,8 @@ char	**ft_split(const char *s, char c)
 	size_t	next_charset;
 	size_t	i;
 
+	if (s == NULL)
+		return (NULL);
 	s_tab = malloc(sizeof(char *) * (ft_count_words(s, c) + 1));
 	if (s_tab == NULL)
 		return (NULL);
