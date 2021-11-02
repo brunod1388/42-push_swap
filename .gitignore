@@ -18,8 +18,4 @@
 #	PROJECT SPEC
 ##################
 bin/*
-tests/*
-test*
-*/test*
-*_test.c
 *.o
