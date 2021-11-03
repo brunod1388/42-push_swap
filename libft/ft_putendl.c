@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar.c                                       :+:      :+:    :+:   */
+/*   ft_putendl.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@42lausanne.ch>          +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:21:49 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/10/25 17:23:00 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/02 21:03:07 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "libft.h"
 
-void ft_putchar_fd(char c, int fd)
+void	ft_putendl_fd(char *s, int fd)
 {
-	ft_putchar_fd(c, 1);
+	ft_putstr_fd(s, fd);
+	write(fd, "\n", 1);
+}
+
+void	ft_putendl(char *s)
+{
+	ft_putstr(s);
+	write(1, "\n", 1);
 }

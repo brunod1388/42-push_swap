@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:33:53 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/10/25 17:33:55 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/02 22:30:09 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,28 @@ void	*ft_calloc(size_t count, size_t size)
 		return (pt);
 	ft_bzero(pt, count * size);
 	return (pt);
+}
+
+void	*ft_realloc(void *pt, size_t size)
+{
+	void	*dst;
+	size_t	len;
+	if (size == 0)
+	{
+		free(pt);
+		return (NULL);
+	}
+	dst = malloc(size);
+	if (dst == NULL)
+		return (dst);
+	if (pt == NULL)
+		ft_bzero(dst, size);
+	else
+	{
+		len = ft_strlen((char *) pt);
+		ft_memcpy(dst, pt, len);
+		ft_bzero(&dst[len], size - len);
+		free(pt);
+	}
+	return (dst);
 }

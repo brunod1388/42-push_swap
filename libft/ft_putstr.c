@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:21:49 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/10/25 17:23:00 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/02 21:03:24 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr_fd(int n, int fd)
+void	ft_putstr_fd(char *s, int fd)
 {
-	if (n == 0)
-		ft_putchar_fd('0', fd);
-	else if (n < 0)
-	{
-		ft_putchar_fd('-', fd);
-		if (n < -9)
-			ft_putnbr_fd(-(n / 10), fd);
-		ft_putchar_fd('0' + (-(long) n % 10), fd);
-	}
-	else
-	{	
-		if (n > 9)
-			ft_putnbr_fd(n / 10, fd);
-		ft_putchar_fd('0' + n % 10, fd);
-	}
+	if (!s)
+		return ;
+	while (*s)
+		write(fd, s++, 1);
+}
+
+void	ft_putstr(char *s)
+{
+	if (!s)
+		return ;
+	while (*s)
+		write(1, s++, 1);
 }
