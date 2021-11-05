@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:21:49 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/02 22:27:23 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/05 00:52:22 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int		ft_isdigit(int c);
 int		ft_isascii(int c);
 int		ft_isalnum(int c);
 int		ft_isprint(int c);
+int		ft_ischarset(int c, const char *set);
 
 int		ft_toupper(int c);
 int		ft_tolower(int c);
@@ -39,6 +40,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size);
 
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_atoi(const char *str);
+int		ft_ilen(int n);
 
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
@@ -59,6 +61,7 @@ char	*ft_substr(const char *s, unsigned int start, size_t len);
 char	*ft_strjoin(const char *s1, const char *s2);
 char	*ft_strtrim(const char *s1, const char *set);
 char	*ft_itoa(int n);
+char	*ft_itoa_base(int n, char *base);
 char	**ft_split(const char *s, char c);
 
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
@@ -72,6 +75,7 @@ void	ft_putendl_fd(char *s, int fd);
 void	ft_putendl(char *s);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_putnbr(int n);
+void	ft_putnbr_base(int n, char *base);
 
 t_list	*ft_lstnew(void *content);
 t_list	*ft_lstlast(t_list *lst);

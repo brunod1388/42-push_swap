@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:21:49 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/10/25 17:23:00 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/05 00:51:17 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_ilen(int n)
+int	ft_ilen(int n)
 {
 	int	l;
 
@@ -49,6 +49,50 @@ char	*ft_itoa(int n)
 	{
 		s[--l] = '0' + n % 10;
 		n /= 10;
+	}
+	return (s);
+}
+
+int	ft_ilen_base(int n, char *base)
+{
+	int	l;
+	int	nbase = ft_strlen(base);
+	
+	l = 0;
+	if (n < 1)
+		l++;
+	while (n)
+	{
+		l++;
+		n /= nbase;
+	}
+	return (l);
+}
+
+char	*ft_itoa_base(int n, char *base)
+{
+	int		l;
+	char	*s;
+	int 	nbase;
+
+	nbase = ft_strlen(base);
+	l = ft_ilen_base(n, base);
+	s = malloc(sizeof(char) * l + 1);
+	if (s == NULL)
+		return (NULL);
+	s[l] = 0;
+	if (n == 0)
+		*s = base[0];
+	if (n < 0)
+	{
+		*s = '-';
+		s[--l] = base[(-(long)n) % nbase];
+		n /= -nbase;
+	}
+	while (n)
+	{
+		s[--l] = base[n % nbase];
+		n /= nbase;
 	}
 	return (s);
 }

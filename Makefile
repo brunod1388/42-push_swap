@@ -8,7 +8,8 @@ LIBS		= -L./libft -lft
 TESTS_DIR	= tests
 
 SRCS		=	$(SRCS_DIR)/ft_printf.c 
-				
+#				$(SRCS_DIR)/ft_string_process.c
+
 TESTS_SRCS	= $(TESTS_DIR)/*.c
 
 OBJS		:= $(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS))
