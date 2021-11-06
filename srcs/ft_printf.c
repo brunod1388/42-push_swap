@@ -6,26 +6,63 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:33:36 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/06 01:53:52 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/07 00:31:10 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 
-// static int	ft_get_narg(char *format)
-// {
-// 	int nb_arg;
+int	ft_addprefix(char **src, char fillchar, int nb_fillchar)
+{
+	char	*dst;
+	int		i;
 
-// 	nb_arg = 0;
-// 	while (*format)
-// 	{
-// 		if (*format == '%' && format[1] != '%')
-// 			nb_arg++;
-// 		format++;
-// 	}
-// 	return (nb_arg);
-// }
+	fdata->clen += nb_fillchar;
+	dst = malloc(fdata->clen + 1);
+	if (!dst)
+		return (-1);
+	i = 0;
+	while (i < nb_fillchar)
+		dst[i++] = fillchar;
+	ft_strcpy(&dst[i], *src);
+	free(*src);
+	*src = dst;
+	return (fdata->clen);
+}
+
+int	ft_addsufix(char **src, char fillchar, int nb_fillchar)
+{
+	char	*dst;
+	int		i;
+
+	fdata->clen += nb_fillchar;
+	dst = realloc(*src, fdata->clen + 1);
+	if (!dst)
+		return (-1);
+	i = 0;
+	ft_strcpy(&dst[i], *src);
+	while (i < nb_fillchar)
+		dst[i++] = fillchar;
+	free(*src);
+	*src = dst;
+	return (fdata->clen);
+}
+
+void print_data(t_fdata *fdata)
+{
+	printf("plus      : %i\n", fdata->plus);
+	printf("minus     : %i\n", fdata->minus);
+	printf("space     : %i\n", fdata->space);
+	printf("hash      : %i\n", fdata->hash);
+	printf("width     : %i\n", fdata->width);
+	printf("precision : %i\n", fdata->precision);
+	printf("type      : %c\n", fdata->type);
+	printf("current   : %s\n", fdata->current);
+	printf("clen      : %i\n", fdata->blen);
+	printf("buf       : %s\n\n", fdata->buf);
+	printf("blen      : %i\n", fdata->blen);
+}
 
 int	ft_addarg(t_fdata *fdata)
 {
@@ -111,6 +148,7 @@ int	ft_percent_process(t_fdata *fdata)
 int	ft_string_process(t_fdata *fdata)
 {
 	fdata->current = ft_strdup(va_arg(fdata->ap, char *));
+	fdata->clen = ft_strlen(fdata->current);
 	return (ft_addarg(fdata));
 }
 
@@ -124,31 +162,32 @@ void	ft_fdata_init(t_fdata *fdata)
 	fdata->precision = 0;
 }
 
-static int ft_eval_format(char *format, t_fdata *fdata)
-{	
-	int	i;
-
-	i = 1;
+static char *ft_eval_format(char *format, t_fdata *fdata)
+{
 	ft_fdata_init(fdata);
-	while (!ft_ischarset(format[i], FORMAT_LIST))
+	while (ft_ischarset(*format, FLAGS_LIST))
 	{
-		if (format[i] == '+')
+		if (*format == '+')
 			fdata->plus = 1;
-		if (format[i] == '#')
+		if (*format == '#')
 			fdata->hash = 1;
-		if (format[i] == '-')
+		if (*format == '-')
 			fdata->minus = 1;
-		if (format[i] == ' ')
+		if (*format == ' ')
 			fdata->space = 1;
-		if (format[i] == '.')
-		{
-			fdata->space = 1;
-			fdata->precision = ft_atoi(&format[i + 1]);
-		}
-		i++;
+		format++;
 	}
-	fdata->type = format[i];
-	return (++i);
+	if (ft_isdigit(*format) && !fdata->precision)
+		fdata->width = ft_atoi(format);
+	while (ft_isdigit(*format))
+		format++;
+	if(format[0] == '.' && ft_isdigit(format[1]))
+		fdata->precision = ft_atoi(++format);
+	while (ft_isdigit(*format))
+		format++;
+	if (ft_ischarset(*format, FORMAT_LIST))
+		fdata->type = *format;
+	return (++format);
 }
 
 static int	ft_process_format(t_fdata *fdata)
@@ -194,9 +233,8 @@ static int ft_formatlen_noarg(char *s)
 }
 
 static int	ft_printf_format(char *format, t_fdata *fdata)
-{	
+{
 	int		i;
-	int		flen;
 	int		arglen;
 	
 	fdata->blen = ft_formatlen_noarg(format);
@@ -206,12 +244,12 @@ static int	ft_printf_format(char *format, t_fdata *fdata)
 	{	
 		if (*format == '%')
 		{
-			flen = ft_eval_format(format, fdata);
+			format = ft_eval_format(format + 1, fdata);
 			arglen = ft_process_format(fdata);
-			if (flen == -1 || arglen == -1)
+			print_data(fdata);
+			if (format == NULL || arglen == -1)
 				return (-1);
 			i += arglen;
-			format += flen;
 		}
 		else
 			fdata->buf[i++] = *format++;

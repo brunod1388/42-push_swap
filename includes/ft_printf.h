@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:33:36 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/06 01:52:21 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/07 00:18:24 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 typedef struct	s_fdata
 {
 	va_list	ap;
-	char	*flags;
 	int		plus;
 	int		minus;
 	int		space;
@@ -30,6 +29,7 @@ typedef struct	s_fdata
 	int		width;
 	int		precision;
 	char	type;
+	int		clen;	//remplacer strlen(current)
 	int		blen;
 	char	*current;
 	char	*buf;
@@ -37,10 +37,6 @@ typedef struct	s_fdata
 
 int		ft_printf(const char *format, ...);
 
-t_fdata	ft_readdata(const char *format);
-
-void 	ft_printformat(const char *format, t_fdata *fdata);
-
-int	ft_string_process(t_fdata *fdata);
+void	ft_printformat(const char *format, t_fdata *fdata);
 
 #endif
