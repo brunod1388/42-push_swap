@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 23:01:48 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/05 00:38:21 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/05 01:22:32 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,34 +40,6 @@ int	is_base(char *base)
 		i++;
 	}
 	return (1);
-}
-
-void	ft_putnbr_base(int nbr, char *base)
-{
-	int		base_nb;
-	char	nb_str[100];
-	int		i;
-	long	n;
-
-	n = nbr;
-	i = 0;
-	base_nb = ft_strlen(base);
-	if (base_nb > 1 && is_base(base))
-	{
-		if (n == 0)
-			write(1, base, 1);
-		if (n < 0)
-			write(1, "-", 1);
-		if (n < 0)
-			n = -n;
-		while (n != 0)
-		{	
-			nb_str[i++] = base[n % base_nb];
-			n = n / base_nb;
-		}
-		while (i > 0)
-			write(1, &nb_str[--i], 1);
-	}
 }
 
 void	ft_putnbr_base(int nbr, char *base)

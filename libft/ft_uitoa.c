@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_uitoa.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:21:49 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/06 01:06:43 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/06 01:19:00 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_ilen(int n)
+unsigned int	ft_uilen(unsigned int n)
 {
 	int	l;
 
 	l = 0;
-	if (n < 1)
-		l++;
+	if (n == 0)
+		return (1);
 	while (n)
 	{
 		l++;
@@ -27,24 +27,18 @@ int	ft_ilen(int n)
 	return (l);
 }
 
-char	*ft_itoa(int n)
+char	*ft_uitoa(unsigned int n)
 {
 	int		l;
 	char	*s;
 
-	l = ft_ilen(n);
-	s = malloc(sizeof(char) * l + 1);
+	l = ft_uilen(n);
+	s = malloc(l + 1);
 	if (s == NULL)
 		return (NULL);
 	s[l] = 0;
 	if (n == 0)
 		*s = '0';
-	if (n < 0)
-	{
-		*s = '-';
-		s[--l] = '0' + (-(long)n) % 10;
-		n /= -10;
-	}
 	while (n)
 	{
 		s[--l] = '0' + n % 10;
@@ -53,13 +47,13 @@ char	*ft_itoa(int n)
 	return (s);
 }
 
-int	ft_ilen_base(int n, int base)
+int	ft_uilen_base(unsigned int n, int base)
 {
 	int	l;
 	
 	l = 0;
-	if (n < 1)
-		l++;
+	if (n == 0)
+		return (1);
 	while (n)
 	{
 		l++;
@@ -68,26 +62,20 @@ int	ft_ilen_base(int n, int base)
 	return (l);
 }
 
-char	*ft_itoa_base(int n, char *base)
+char	*ft_uitoa_base(unsigned int n, char *base)
 {
 	int		l;
 	char	*s;
 	int 	nbase;
 
 	nbase = ft_strlen(base);
-	l = ft_ilen_base(n, nbase);
-	s = malloc(sizeof(char) * l + 1);
+	l = ft_uilen_base(n, nbase);
+	s = malloc(l + 1);
 	if (s == NULL)
 		return (NULL);
 	s[l] = 0;
 	if (n == 0)
 		*s = base[0];
-	if (n < 0)
-	{
-		*s = '-';
-		s[--l] = base[(-(long)n) % nbase];
-		n /= -nbase;
-	}
 	while (n)
 	{
 		s[--l] = base[n % nbase];

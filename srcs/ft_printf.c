@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:33:36 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/05 01:05:25 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/06 01:53:52 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,23 @@ int	ft_int_process(t_fdata *fdata)
 	return (ft_addarg(fdata));
 }
 
+int	ft_uint_process(t_fdata *fdata)
+{
+	unsigned int	i;
+
+	i = va_arg(fdata->ap, unsigned int);
+	fdata->current = ft_uitoa(i);
+	if (fdata->current == NULL)
+		return (-1);
+	return (ft_addarg(fdata));
+}
+
 int	ft_minhex_process(t_fdata *fdata)
 {
-	int	i;
+	unsigned int	i;
 
-	i = va_arg(fdata->ap, int);
-	fdata->current = ft_itoa_base(i, "0123456789abcdef");
+	i = va_arg(fdata->ap, unsigned int);
+	fdata->current = ft_uitoa_base(i, "0123456789abcdef");
 	if (fdata->current == NULL)
 		return (-1);
 	return (ft_addarg(fdata));
@@ -65,10 +76,10 @@ int	ft_minhex_process(t_fdata *fdata)
 
 int	ft_caphex_process(t_fdata *fdata)
 {
-	int	i;
+	unsigned int	i;
 
-	i = va_arg(fdata->ap, int);
-	fdata->current = ft_itoa_base(i, "0123456789ABCDEF");
+	i = va_arg(fdata->ap, unsigned int);
+	fdata->current = ft_uitoa_base(i, "0123456789ABCDEF");
 	if (fdata->current == NULL)
 		return (-1);
 	return (ft_addarg(fdata));
@@ -103,13 +114,39 @@ int	ft_string_process(t_fdata *fdata)
 	return (ft_addarg(fdata));
 }
 
+void	ft_fdata_init(t_fdata *fdata)
+{
+	fdata->plus = 0;
+	fdata->minus = 0;
+	fdata->space = 0;
+	fdata->hash = 0;
+	fdata->width = 0;
+	fdata->precision = 0;
+}
+
 static int ft_eval_format(char *format, t_fdata *fdata)
 {	
 	int	i;
 
 	i = 1;
+	ft_fdata_init(fdata);
 	while (!ft_ischarset(format[i], FORMAT_LIST))
+	{
+		if (format[i] == '+')
+			fdata->plus = 1;
+		if (format[i] == '#')
+			fdata->hash = 1;
+		if (format[i] == '-')
+			fdata->minus = 1;
+		if (format[i] == ' ')
+			fdata->space = 1;
+		if (format[i] == '.')
+		{
+			fdata->space = 1;
+			fdata->precision = ft_atoi(&format[i + 1]);
+		}
 		i++;
+	}
 	fdata->type = format[i];
 	return (++i);
 }
@@ -127,7 +164,7 @@ static int	ft_process_format(t_fdata *fdata)
 	else if (fdata->type == 'i')
 		return (ft_int_process(fdata));
 	else if (fdata->type == 'u')
-		return (0);
+		return (ft_uint_process(fdata));
 	else if (fdata->type == 'x')
 		return (ft_minhex_process(fdata));
 	else if (fdata->type == 'X')

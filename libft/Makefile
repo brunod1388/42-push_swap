@@ -30,12 +30,14 @@ SRCS	=	ft_isalpha.c \
 			ft_strtrim.c \
 			ft_split.c \
 			ft_itoa.c \
+			ft_uitoa.c \
 			ft_strmapi.c \
 			ft_striteri.c \
 			ft_putchar.c \
 			ft_putstr.c \
 			ft_putendl.c \
 			ft_putnbr.c \
+			ft_putnbr_base.c \
 			ft_lstnew_bonus.c \
 			ft_lstadd_front_bonus.c \
 			ft_lstsize_bonus.c \
