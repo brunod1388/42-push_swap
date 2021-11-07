@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:21:49 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/06 22:23:42 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/08 00:17:46 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,10 @@ char	*ft_strjoin(const char *s1, const char *s2);
 char	*ft_strtrim(const char *s1, const char *set);
 char	*ft_itoa(int n);
 char	*ft_uitoa(unsigned int n);
+char	*ft_ultoa(unsigned long n);
 char	*ft_itoa_base(int n, char *base);
 char	*ft_uitoa_base(unsigned int n, char *base);
+char	*ft_ultoa_base(unsigned long n, char *base);
 char	**ft_split(const char *s, char c);
 
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));

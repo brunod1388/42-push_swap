@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:33:36 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/07 21:27:46 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/08 00:24:58 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,30 @@ int	ft_space_process(t_fdata *fdata)
 	return (fdata->clen);
 }
 
+int	ft_hash_process(t_fdata *fdata)
+{
+	char *dst;
+
+	if (fdata->type == 'p' || 
+		(fdata->hash && (fdata->type == 'x' || fdata->type == 'X')))
+	{
+		dst = malloc(fdata->clen + 3);
+		if (!dst)
+			return (-1);
+		dst[0] = '0';
+		if (fdata->type == 'p' || fdata->type == 'x')
+			dst[1] = 'x';
+		else
+			dst[1] = 'X';
+		dst[2] = 0;
+		ft_strcat(dst, fdata->current);
+		free(fdata->current);
+		fdata->current = dst;
+		fdata->clen = ft_strlen(fdata->current);
+	}
+	return (fdata->clen);
+}
+
 int	ft_plus_process(t_fdata *fdata)
 {	
 	if (fdata->plus && !ft_memchr(fdata->current, '-', fdata->clen))
@@ -177,6 +201,20 @@ int	ft_uint_process(t_fdata *fdata)
 	return (ft_addarg(fdata));
 }
 
+int	ft_ulong_process(t_fdata *fdata)
+{
+	unsigned long	ul;
+
+	ul = va_arg(fdata->ap, unsigned long);
+	fdata->current = ft_ultoa_base(ul, "0123456789abcdef");
+	if (fdata->current == NULL)
+		return (-1);
+	fdata->clen = ft_strlen(fdata->current);
+	ft_hash_process(fdata);
+	ft_width_process(fdata);
+	return (ft_addarg(fdata));
+}
+
 int	ft_minhex_process(t_fdata *fdata)
 {
 	unsigned int	i;
@@ -188,6 +226,7 @@ int	ft_minhex_process(t_fdata *fdata)
 	fdata->clen = ft_strlen(fdata->current);
 	ft_precision_number_process(fdata);
 	ft_plus_process(fdata);
+	ft_hash_process(fdata);
 	ft_width_process(fdata);
 	return (ft_addarg(fdata));
 }
@@ -203,6 +242,7 @@ int	ft_caphex_process(t_fdata *fdata)
 	fdata->clen = ft_strlen(fdata->current);
 	ft_precision_number_process(fdata);
 	ft_plus_process(fdata);
+	ft_hash_process(fdata);
 	ft_width_process(fdata);
 	return (ft_addarg(fdata));
 }
@@ -292,7 +332,7 @@ static int	ft_process_format(t_fdata *fdata)
 	else if (fdata->type == 's')
 		return (ft_string_process(fdata));
 	else if (fdata->type == 'p')
-		return (0);
+		return (ft_ulong_process(fdata));
 	else if (fdata->type == 'd')
 		return (ft_int_process(fdata));
 	else if (fdata->type == 'i')
