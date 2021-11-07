@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:33:36 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/07 00:18:24 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/07 21:09:16 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,11 @@ typedef struct	s_fdata
 	int		minus;
 	int		space;
 	int		hash;
+	int		dot;
 	int		width;
 	int		precision;
 	char	type;
-	int		clen;	//remplacer strlen(current)
+	int		clen;
 	int		blen;
 	char	*current;
 	char	*buf;

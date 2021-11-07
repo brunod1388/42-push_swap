@@ -6,14 +6,14 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:33:36 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/07 00:31:10 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/07 21:27:46 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 
-int	ft_addprefix(char **src, char fillchar, int nb_fillchar)
+int	ft_addprefix(t_fdata *fdata, char fillchar, int nb_fillchar)
 {
 	char	*dst;
 	int		i;
@@ -25,27 +25,24 @@ int	ft_addprefix(char **src, char fillchar, int nb_fillchar)
 	i = 0;
 	while (i < nb_fillchar)
 		dst[i++] = fillchar;
-	ft_strcpy(&dst[i], *src);
-	free(*src);
-	*src = dst;
+	ft_strcpy(&dst[i], fdata->current);
+	free(fdata->current);
+	fdata->current = dst;
 	return (fdata->clen);
 }
 
-int	ft_addsufix(char **src, char fillchar, int nb_fillchar)
+int	ft_addsufix(t_fdata *fdata, char fillchar, int nb_fillchar)
 {
-	char	*dst;
 	int		i;
 
-	fdata->clen += nb_fillchar;
-	dst = realloc(*src, fdata->clen + 1);
-	if (!dst)
+	fdata->current = realloc(fdata->current, fdata->clen + nb_fillchar + 1);
+	if (!fdata->current)
 		return (-1);
-	i = 0;
-	ft_strcpy(&dst[i], *src);
-	while (i < nb_fillchar)
-		dst[i++] = fillchar;
-	free(*src);
-	*src = dst;
+	i = fdata->clen;
+	fdata->clen += nb_fillchar;
+	while (i < fdata->clen)
+		fdata->current[i++] = fillchar;
+	fdata->current[i] = 0;
 	return (fdata->clen);
 }
 
@@ -59,23 +56,94 @@ void print_data(t_fdata *fdata)
 	printf("precision : %i\n", fdata->precision);
 	printf("type      : %c\n", fdata->type);
 	printf("current   : %s\n", fdata->current);
-	printf("clen      : %i\n", fdata->blen);
+	printf("clen      : %i\n", fdata->clen);
 	printf("buf       : %s\n\n", fdata->buf);
 	printf("blen      : %i\n", fdata->blen);
 }
 
 int	ft_addarg(t_fdata *fdata)
 {
-	int	len_arg;
-
-	len_arg = ft_strlen(fdata->current);
-	fdata->blen += len_arg;
-	fdata->buf = ft_realloc(fdata->buf, fdata->blen);
+	fdata->blen += fdata->clen;
+	fdata->buf = ft_realloc(fdata->buf, fdata->blen + 1);
 	if (fdata->buf == NULL)
 		return (-1);
 	ft_strcat(fdata->buf, fdata->current);	
 	free(fdata->current);
-	return (len_arg);
+	return (fdata->clen);
+}
+
+int	ft_width_process(t_fdata *fdata)
+{
+	if (fdata->width > fdata->clen)
+	{
+		if (fdata->minus)
+		{
+			if (ft_addsufix(fdata, ' ', fdata->width - fdata->clen) == -1)
+				return (-1);
+		}
+		else
+		{
+			if (ft_addprefix(fdata, ' ', fdata->width - fdata->clen) == -1)
+				return (-1);
+		}
+	}
+	return (fdata->clen);
+}
+
+int	ft_space_process(t_fdata *fdata)
+{
+	if (fdata->space && fdata->current[0] != ' ' &&
+			!ft_memchr(fdata->current, '-', fdata->clen))
+		ft_addprefix(fdata, ' ', 1);
+	return (fdata->clen);
+}
+
+int	ft_plus_process(t_fdata *fdata)
+{	
+	if (fdata->plus && !ft_memchr(fdata->current, '-', fdata->clen))
+	{
+		ft_addprefix(fdata, '+', 1);
+	}
+	return (fdata->clen);
+}
+
+int	ft_precision_string_process(t_fdata *fdata)
+{
+	if (fdata->dot && fdata->precision < fdata->clen)
+	{
+		fdata->current[fdata->precision] = 0;
+		fdata->clen = fdata->precision;
+	}
+	return (fdata->clen);
+}
+
+int	ft_precision_number_process(t_fdata *fdata)
+{
+	char *neg_sign;
+
+	if (fdata->precision > fdata->clen)
+	{
+		if (ft_addprefix(fdata, '0', fdata->precision - fdata->clen) == -1)
+			return (-1);
+		if (fdata->type == 'd' || fdata->type == 'i')
+		{
+			neg_sign = ft_memchr(fdata->current, '-', fdata->clen);
+			if (neg_sign)
+			{
+				*neg_sign = '0';
+				if (ft_addprefix(fdata, '-', 1) == -1)
+					return (-1);
+			}
+		}
+	}
+	else if (fdata->dot && fdata->precision == 0 &&
+		fdata->current[0] == '0' && fdata->current[1] == 0)
+	{
+			free(fdata->current);
+			fdata->current = ft_strdup("");
+			fdata->clen = 0;
+	}
+	return (fdata->clen);
 }
 
 int	ft_int_process(t_fdata *fdata)
@@ -86,6 +154,11 @@ int	ft_int_process(t_fdata *fdata)
 	fdata->current = ft_itoa(i);
 	if (fdata->current == NULL)
 		return (-1);
+	fdata->clen = ft_strlen(fdata->current);
+	ft_precision_number_process(fdata);
+	ft_plus_process(fdata);
+	ft_space_process(fdata);
+	ft_width_process(fdata);
 	return (ft_addarg(fdata));
 }
 
@@ -97,6 +170,10 @@ int	ft_uint_process(t_fdata *fdata)
 	fdata->current = ft_uitoa(i);
 	if (fdata->current == NULL)
 		return (-1);
+	fdata->clen = ft_strlen(fdata->current);
+	ft_precision_number_process(fdata);
+	ft_plus_process(fdata);
+	ft_width_process(fdata);
 	return (ft_addarg(fdata));
 }
 
@@ -108,6 +185,10 @@ int	ft_minhex_process(t_fdata *fdata)
 	fdata->current = ft_uitoa_base(i, "0123456789abcdef");
 	if (fdata->current == NULL)
 		return (-1);
+	fdata->clen = ft_strlen(fdata->current);
+	ft_precision_number_process(fdata);
+	ft_plus_process(fdata);
+	ft_width_process(fdata);
 	return (ft_addarg(fdata));
 }
 
@@ -119,6 +200,10 @@ int	ft_caphex_process(t_fdata *fdata)
 	fdata->current = ft_uitoa_base(i, "0123456789ABCDEF");
 	if (fdata->current == NULL)
 		return (-1);
+	fdata->clen = ft_strlen(fdata->current);
+	ft_precision_number_process(fdata);
+	ft_plus_process(fdata);
+	ft_width_process(fdata);
 	return (ft_addarg(fdata));
 }
 
@@ -132,6 +217,9 @@ int	ft_char_process(t_fdata *fdata)
 		return (-1);
 	fdata->current[0] = c;
 	fdata->current[1] = 0;
+	fdata->clen = 1;
+	ft_space_process(fdata);
+	ft_width_process(fdata);
 	return (ft_addarg(fdata));
 }
 
@@ -142,6 +230,8 @@ int	ft_percent_process(t_fdata *fdata)
 		return (-1);
 	fdata->current[0] = '%';
 	fdata->current[1] = 0;
+	fdata->clen = 1;
+	ft_width_process(fdata);
 	return (ft_addarg(fdata));
 }
 
@@ -149,6 +239,8 @@ int	ft_string_process(t_fdata *fdata)
 {
 	fdata->current = ft_strdup(va_arg(fdata->ap, char *));
 	fdata->clen = ft_strlen(fdata->current);
+	ft_precision_string_process(fdata);
+	ft_width_process(fdata);
 	return (ft_addarg(fdata));
 }
 
@@ -158,14 +250,16 @@ void	ft_fdata_init(t_fdata *fdata)
 	fdata->minus = 0;
 	fdata->space = 0;
 	fdata->hash = 0;
+	fdata->dot = 0;
 	fdata->width = 0;
 	fdata->precision = 0;
+	fdata->clen = 0;
 }
 
 static char *ft_eval_format(char *format, t_fdata *fdata)
 {
 	ft_fdata_init(fdata);
-	while (ft_ischarset(*format, FLAGS_LIST))
+	while (ft_ischarset(*(++format), FLAGS_LIST))
 	{
 		if (*format == '+')
 			fdata->plus = 1;
@@ -175,12 +269,13 @@ static char *ft_eval_format(char *format, t_fdata *fdata)
 			fdata->minus = 1;
 		if (*format == ' ')
 			fdata->space = 1;
-		format++;
 	}
 	if (ft_isdigit(*format) && !fdata->precision)
 		fdata->width = ft_atoi(format);
 	while (ft_isdigit(*format))
 		format++;
+	if (*format == '.')
+		fdata->dot = 1;
 	if(format[0] == '.' && ft_isdigit(format[1]))
 		fdata->precision = ft_atoi(++format);
 	while (ft_isdigit(*format))
@@ -235,7 +330,6 @@ static int ft_formatlen_noarg(char *s)
 static int	ft_printf_format(char *format, t_fdata *fdata)
 {
 	int		i;
-	int		arglen;
 	
 	fdata->blen = ft_formatlen_noarg(format);
 	fdata->buf = ft_calloc(fdata->blen, sizeof(char));
@@ -244,12 +338,13 @@ static int	ft_printf_format(char *format, t_fdata *fdata)
 	{	
 		if (*format == '%')
 		{
-			format = ft_eval_format(format + 1, fdata);
-			arglen = ft_process_format(fdata);
-			print_data(fdata);
-			if (format == NULL || arglen == -1)
+			format = ft_eval_format(format, fdata);
+			// print_data(fdata);	//test
+			// printf("test : %s\n", fdata->current);   //test
+			if (ft_process_format(fdata) == -1)
 				return (-1);
-			i += arglen;
+			// print_data(fdata);	//test
+			i += fdata->clen;
 		}
 		else
 			fdata->buf[i++] = *format++;
