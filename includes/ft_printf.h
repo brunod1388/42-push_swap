@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:33:36 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/07 21:09:16 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/08 02:15:39 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include <libft.h>
 # include <stdarg.h>
 # define FORMAT_LIST "cspdiuxX%"
-# define FLAGS_LIST "-# +"
+# define FLAGS_LIST "-# +0"
 
 #include <stdio.h>
 
@@ -24,6 +24,7 @@ typedef struct	s_fdata
 	va_list	ap;
 	int		plus;
 	int		minus;
+	int		zero;
 	int		space;
 	int		hash;
 	int		dot;

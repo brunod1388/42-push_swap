@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:33:36 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/08 00:24:58 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/08 02:41:50 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,11 @@ int	ft_width_process(t_fdata *fdata)
 			if (ft_addsufix(fdata, ' ', fdata->width - fdata->clen) == -1)
 				return (-1);
 		}
+		else if (fdata->zero)
+		{
+			if (ft_addprefix(fdata, '0', fdata->width - fdata->clen) == -1)
+				return (-1);
+		}
 		else
 		{
 			if (ft_addprefix(fdata, ' ', fdata->width - fdata->clen) == -1)
@@ -140,11 +145,28 @@ int	ft_precision_string_process(t_fdata *fdata)
 	}
 	return (fdata->clen);
 }
+int	ft_fix_plusminus(t_fdata *fdata)
+{
+	char *sign;
 
+	sign = ft_memchr(fdata->current, '-', fdata->clen);
+	if (sign)
+	{
+		fdata->current[0] = *sign;
+		*sign = '0';
+		return (0);
+	}
+	sign = ft_memchr(fdata->current, '+', fdata->clen);
+	if (sign)
+	{
+		fdata->current[0] = *sign;
+		*sign = '0';
+	}
+	return (0);
+}
 int	ft_precision_number_process(t_fdata *fdata)
 {
 	char *neg_sign;
-
 	if (fdata->precision > fdata->clen)
 	{
 		if (ft_addprefix(fdata, '0', fdata->precision - fdata->clen) == -1)
@@ -183,6 +205,8 @@ int	ft_int_process(t_fdata *fdata)
 	ft_plus_process(fdata);
 	ft_space_process(fdata);
 	ft_width_process(fdata);
+	if (fdata->zero)
+		ft_fix_plusminus(fdata);
 	return (ft_addarg(fdata));
 }
 
@@ -288,6 +312,7 @@ void	ft_fdata_init(t_fdata *fdata)
 {
 	fdata->plus = 0;
 	fdata->minus = 0;
+	fdata->zero = 0;
 	fdata->space = 0;
 	fdata->hash = 0;
 	fdata->dot = 0;
@@ -296,9 +321,8 @@ void	ft_fdata_init(t_fdata *fdata)
 	fdata->clen = 0;
 }
 
-static char *ft_eval_format(char *format, t_fdata *fdata)
+char	*ft_eval_flag(char *format, t_fdata *fdata)
 {
-	ft_fdata_init(fdata);
 	while (ft_ischarset(*(++format), FLAGS_LIST))
 	{
 		if (*format == '+')
@@ -309,7 +333,16 @@ static char *ft_eval_format(char *format, t_fdata *fdata)
 			fdata->minus = 1;
 		if (*format == ' ')
 			fdata->space = 1;
+		if (*format == '0')
+			fdata->zero = 1;
 	}
+	return (format);
+}
+
+static char *ft_eval_format(char *format, t_fdata *fdata)
+{
+	ft_fdata_init(fdata);
+	format = ft_eval_flag(format, fdata);
 	if (ft_isdigit(*format) && !fdata->precision)
 		fdata->width = ft_atoi(format);
 	while (ft_isdigit(*format))
@@ -379,11 +412,8 @@ static int	ft_printf_format(char *format, t_fdata *fdata)
 		if (*format == '%')
 		{
 			format = ft_eval_format(format, fdata);
-			// print_data(fdata);	//test
-			// printf("test : %s\n", fdata->current);   //test
 			if (ft_process_format(fdata) == -1)
 				return (-1);
-			// print_data(fdata);	//test
 			i += fdata->clen;
 		}
 		else

@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 20:14:44 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/08 00:24:23 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/08 02:43:48 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,33 +162,40 @@ int main (void)
 	n =    printf("s1 : %%\ts2 : %-20.10%\ts3 : %-.2%\t s_tab : %-20%\n");
 	printf("len = %d\n\n", n);
 
-	// n = ft_printf("a : %20%\nb : %-10%\nc : %%\n");
-	// printf("len = %d\n", n);
+	n = ft_printf("a : %20%\nb : %-10%\nc : %%\n");
+	printf("len = %d\n", n);
 
-	// n =    printf("a : %20%\nb : %-10%\nc : %%\n");
-	// printf("len = %d\n", n);
+	n =    printf("a : %20%\nb : %-10%\nc : %%\n");
+	printf("len = %d\n", n);
 
-	// n = ft_printf("final test : %.20d\n\n", -32);
-	// printf("len = %d\n", n);
-	// n = printf("final test : %.20d\n\n", -32);
-	// printf("len = %d\n", n);
+	n = ft_printf("final test : %.20d\n\n", -32);
+	printf("len = %d\n", n);
+	n = printf("final test : %.20d\n\n", -32);
+	printf("len = %d\n", n);
 
-	// printf("%d\n", 32);
-	// printf("% .53d\n", 32);
-	// printf("%+.53d\n", -32);
-	// printf("% .53d\n", -32);
+	printf("%d\n", 32);
+	printf("% .53d\n", 32);
+	printf("%+.53d\n", -32);
+	printf("% .53d\n", -32);
 
-	// printf("%#x\n", 55);
-	// printf("%#X\n", 55);
-	// printf("%.3s.\n", "salut");
-	// printf("%-20s.\n", "salut");
+	printf("%#x\n", 55);
+	printf("%#X\n", 55);
+	printf("%.3s.\n", "salut");
+	printf("%-20s.\n", "salut");
 
-	// n = ft_printf("test : %s\n", "test");
-	// printf("len = %d\n", n);
-	// n = printf("test : %s\n", "test");
-	// printf("len = %d\n", n);
+	n = ft_printf("test : %s\n", "test");
+	printf("len = %d\n", n);
+	n = printf("test : %s\n", "test");
+	printf("len = %d\n", n);
 
+	ft_printf("int : \n");
+	n = ft_printf("a : %+010i\tb : %+054i\tc : %+.12i\ta : %.0i\tb : %i\tc : %20s\n", 
+					-32, 32, -538609, 0, -5, "8737853");
+	printf("len = %d\n", n);
+	n = printf("a : %+010i\tb : %+054i\tc : %+.12i\ta : %.0i\tb : %i\tc : %20s\n",
+				-32, 32, -538609, 0, -5, "8737853");
+	printf("len = %d\n\n", n);
 
-	// while(1);
+	while(1);
 	return (0);
 }
