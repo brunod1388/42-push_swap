@@ -6,12 +6,12 @@
 /*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 20:14:44 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/08 16:56:40 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/08 18:14:14 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
-#include "../includes/ft_printf.h"
+#include "libft.h"
+#include "ft_printf.h"
 #include <stdio.h>
 
 int main (void)

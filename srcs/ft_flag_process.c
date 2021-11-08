@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 13:43:07 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/08 17:01:43 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/08 17:25:37 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_get_flag(char *format, t_fdata *fdata)
 		if (*format == ' ')
 			fdata->space = 1;
 		if (*format == '0')
-			fdata->zero = 1;
+			fdata->zero = 1; 
 	}
 	return (format);
 }

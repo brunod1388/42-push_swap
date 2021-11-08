@@ -6,13 +6,13 @@
 /*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:33:36 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/08 15:02:08 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/08 18:12:30 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef	FT_PRINTF_H
 # define FT_PRINTF_H
-# include "../libft/libft.h"
+# include <libft.h>
 # include <stdarg.h>
 # define FORMAT_LIST "cspdiuxX%"
 # define FLAGS_LIST "-# +0"
@@ -39,11 +39,11 @@ typedef struct	s_fdata
 
 int		ft_printf(const char *format, ...);
 
-int	ft_printf_format(char *format, t_fdata *fdata);
-char		*ft_eval_flag(char *format, t_fdata *fdata);
-char		*ft_eval_flags(char *format, t_fdata *fdata);
-int			ft_process_format(t_fdata *fdata);
-int			ft_formatlen_noarg(char *s);
+int		ft_printf_format(char *format, t_fdata *fdata);
+char	*ft_eval_flag(char *format, t_fdata *fdata);
+char	*ft_eval_flags(char *format, t_fdata *fdata);
+int		ft_process_format(t_fdata *fdata);
+int		ft_formatlen_noarg(char *s);
 
 void	ft_fdata_init(t_fdata *fdata);
 int		ft_addprefix(t_fdata *fdata, char fillchar, int nb_fillchar);
