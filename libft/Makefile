@@ -69,14 +69,4 @@ clean:
 fclean:		clean
 			$(RM) $(NAME)
 
-test:		$(OBJS)
-			$(CC) $(CFLAGS) -o test $(OBJS) test.c
-			./test
-
-cleantest :	
-			rm -f test
-
-retest:		cleantest test
-
-
 .PHONY:		all re clean fclean bin cleantest

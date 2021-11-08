@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 13:43:07 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/08 16:53:26 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/08 17:03:29 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int	ft_precision_string_process(t_fdata *fdata)
 
 int	ft_precision_number_process(t_fdata *fdata)
 {
-	char *neg_sign;
+	char	*neg_sign;
+
 	if (fdata->precision > fdata->clen)
 	{
 		if (ft_addprefix(fdata, '0', fdata->precision - fdata->clen) == -1)
@@ -49,12 +50,12 @@ int	ft_precision_number_process(t_fdata *fdata)
 			}
 		}
 	}
-	else if (fdata->dot && fdata->precision == 0 &&
-		fdata->current[0] == '0' && fdata->current[1] == 0)
+	else if (fdata->dot && fdata->precision == 0
+		&& fdata->current[0] == '0' && fdata->current[1] == 0)
 	{
-			free(fdata->current);
-			fdata->current = ft_strdup("");
-			fdata->clen = 0;
+		free(fdata->current);
+		fdata->current = ft_strdup("");
+		fdata->clen = 0;
 	}
 	return (fdata->clen);
 }

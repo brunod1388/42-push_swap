@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:33:36 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/08 16:56:23 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/08 17:00:21 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_process_format(t_fdata *fdata)
 	return (-1);
 }
 
-int ft_formatlen_noarg(char *s)
+int	ft_formatlen_noarg(char *s)
 {
 	int	i;
 
@@ -43,7 +43,7 @@ int ft_formatlen_noarg(char *s)
 			while (!ft_ischarset(*s, FORMAT_LIST))
 				s++;
 			s++;
-			continue;
+			continue ;
 		}
 		i++;
 	}
@@ -53,7 +53,7 @@ int ft_formatlen_noarg(char *s)
 int	ft_printf_format(char *format, t_fdata *fdata)
 {
 	int		i;
-	
+
 	fdata->blen = ft_formatlen_noarg(format);
 	fdata->buf = ft_calloc(fdata->blen, sizeof(char));
 	i = 0;
@@ -74,7 +74,7 @@ int	ft_printf_format(char *format, t_fdata *fdata)
 	return (fdata->blen);
 }
 
-int ft_printf(const char *format, ...)
+int	ft_printf(const char *format, ...)
 {
 	int		len;
 	t_fdata	*fdata;

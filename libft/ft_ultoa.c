@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ultoa.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:21:49 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/08 00:19:07 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/08 17:07:26 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*ft_ultoa(unsigned long n)
 int	ft_ullen_base(unsigned long n, int base)
 {
 	int	l;
-	
+
 	l = 0;
 	if (n == 0)
 		return (1);
@@ -66,7 +66,7 @@ char	*ft_ultoa_base(unsigned long n, char *base)
 {
 	int		l;
 	char	*s;
-	int 	nbase;
+	int		nbase;
 
 	nbase = ft_strlen(base);
 	l = ft_ullen_base(n, nbase);

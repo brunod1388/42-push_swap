@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 13:43:07 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/08 16:53:27 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/08 17:01:43 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*ft_get_flag(char *format, t_fdata *fdata)
 	return (format);
 }
 
-char *ft_eval_flags(char *format, t_fdata *fdata)
+char	*ft_eval_flags(char *format, t_fdata *fdata)
 {
 	ft_fdata_init(fdata);
 	format = ft_get_flag(format, fdata);
@@ -40,7 +40,7 @@ char *ft_eval_flags(char *format, t_fdata *fdata)
 		format++;
 	if (*format == '.')
 		fdata->dot = 1;
-	if(format[0] == '.' && ft_isdigit(format[1]))
+	if (format[0] == '.' && ft_isdigit(format[1]))
 		fdata->precision = ft_atoi(++format);
 	while (ft_isdigit(*format))
 		format++;
@@ -74,18 +74,18 @@ int	ft_width_process(t_fdata *fdata)
 
 int	ft_space_process(t_fdata *fdata)
 {
-	if (fdata->space && fdata->current[0] != ' ' &&
-			!ft_memchr(fdata->current, '-', fdata->clen))
+	if (fdata->space && fdata->current[0] != ' '
+		&& !ft_memchr(fdata->current, '-', fdata->clen))
 		ft_addprefix(fdata, ' ', 1);
 	return (fdata->clen);
 }
 
 int	ft_hash_process(t_fdata *fdata)
 {
-	char *dst;
+	char	*dst;
 
-	if (fdata->type == 'p' || 
-		(fdata->hash && (fdata->type == 'x' || fdata->type == 'X')))
+	if (fdata->type == 'p'
+		|| (fdata->hash && (fdata->type == 'x' || fdata->type == 'X')))
 	{
 		dst = malloc(fdata->clen + 3);
 		if (!dst)

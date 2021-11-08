@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:33:53 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/03 20:30:56 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/08 17:07:43 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	*ft_realloc(void *pt, size_t size)
 {
 	void	*dst;
 	size_t	len;
+
 	if (size == 0)
 	{
 		free(pt);

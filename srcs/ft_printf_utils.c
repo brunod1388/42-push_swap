@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 23:04:16 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/08 15:00:43 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/08 16:59:28 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,14 @@ int	ft_addarg(t_fdata *fdata)
 	fdata->buf = ft_realloc(fdata->buf, fdata->blen + 1);
 	if (fdata->buf == NULL)
 		return (-1);
-	ft_strcat(fdata->buf, fdata->current);	
+	ft_strcat(fdata->buf, fdata->current);
 	free(fdata->current);
 	return (fdata->clen);
 }
 
 int	ft_fix_plusminus(t_fdata *fdata)
 {
-	char *sign;
+	char	*sign;
 
 	sign = ft_memchr(fdata->current, '-', fdata->clen);
 	if (sign)

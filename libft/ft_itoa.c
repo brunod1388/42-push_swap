@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:21:49 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/06 01:06:43 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/08 17:06:12 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*ft_itoa(int n)
 int	ft_ilen_base(int n, int base)
 {
 	int	l;
-	
+
 	l = 0;
 	if (n < 1)
 		l++;
@@ -72,7 +72,7 @@ char	*ft_itoa_base(int n, char *base)
 {
 	int		l;
 	char	*s;
-	int 	nbase;
+	int		nbase;
 
 	nbase = ft_strlen(base);
 	l = ft_ilen_base(n, nbase);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_uitoa.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:21:49 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/06 01:19:00 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/08 17:07:06 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*ft_uitoa(unsigned int n)
 int	ft_uilen_base(unsigned int n, int base)
 {
 	int	l;
-	
+
 	l = 0;
 	if (n == 0)
 		return (1);
@@ -66,7 +66,7 @@ char	*ft_uitoa_base(unsigned int n, char *base)
 {
 	int		l;
 	char	*s;
-	int 	nbase;
+	int		nbase;
 
 	nbase = ft_strlen(base);
 	l = ft_uilen_base(n, nbase);
