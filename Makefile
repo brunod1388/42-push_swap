@@ -2,20 +2,22 @@ CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror
 
 SRCS_DIR	= srcs
-OBJS_DIR	= bin
 INCLUDES	= -I./includes -I./libft
 LIBS		= -L./libft -lft
 TESTS_DIR	= tests
 
-SRCS		=	$(SRCS_DIR)/ft_printf.c 
-#				$(SRCS_DIR)/ft_string_process.c
+SRCS		=	$(SRCS_DIR)/ft_flag_process.c  \
+				$(SRCS_DIR)/ft_flag_process2.c  \
+				$(SRCS_DIR)/ft_type_process.c \
+				$(SRCS_DIR)/ft_type_process2.c \
+				$(SRCS_DIR)/ft_printf_utils.c \
+				$(SRCS_DIR)/ft_printf.c
 
-TESTS_SRCS	= $(TESTS_DIR)/*.c
-
-OBJS		:= $(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS))
-TESTS_OBJS	:= $(patsubst $(TESTS_DIR)/%.c, $(TESTS_DIR)/%.o, $(TESTS_SRCS))
+OBJS		= ${SRCS:.c=.o}
 NAME		= ft_printf.a
+
 TEST_NAME	= $(TESTS_DIR)/test
+TESTS_SRCS	= $(TESTS_DIR)/printf_test.c
 
 $(NAME):	$(OBJS)
 			make -C ./libft
@@ -38,8 +40,8 @@ clean:
 fclean:		clean
 			rm -f $(NAME)
 
-test:		all $(TESTS_OBJS)
-			$(CC) $(CFLAGS) $(INCLUDES) $(LIBS) -o $(TEST_NAME) $(TESTS_OBJS) $(OBJS)
+test:		$(OBJS)
+			$(CC) $(CFLAGS) $(INCLUDES) $(LIBS) -o $(TEST_NAME) $(OBJS) $(TESTS_SRCS)
 			./$(TEST_NAME)
 
 retest:		fclean
