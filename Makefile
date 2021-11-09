@@ -1,43 +1,47 @@
-CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror
+LIBFT	= ./libft/libft.a
+LIBS	= -L./libft -lft
 
-SRCS_DIR	= srcs
-INCLUDES	= -I./includes -I./libft
-LIBS		= -L./libft -lft
+NAME = libftprintf.a
+#NAME = ft_printf.a
+SRCS =	ft_flag_process.c \
+		ft_flag_process2.c \
+		ft_type_process.c \
+		ft_type_process2.c \
+		ft_printf_utils.c \
+		ft_printf.c
+
+CC = gcc
+
+FLAGS = -c -Wall -Wextra -Werror
+
+INCLUDES = -I./includes
+
+OBJS = $(SRCS:.c=.o)
+
 TESTS_DIR	= tests
-
-SRCS		=	$(SRCS_DIR)/ft_flag_process.c \
-				$(SRCS_DIR)/ft_flag_process2.c \
-				$(SRCS_DIR)/ft_type_process.c \
-				$(SRCS_DIR)/ft_type_process2.c \
-				$(SRCS_DIR)/ft_printf_utils.c \
-				$(SRCS_DIR)/ft_printf.c
-
-OBJS		= ${SRCS:.c=.o}
-# NAME		= ft_printf.a
-NAME		= libftprintf.a
-
-
 TEST_NAME	= $(TESTS_DIR)/test
 TESTS_SRCS	= $(TESTS_DIR)/printf_test.c
 
 $(NAME):	$(OBJS)
-			make -C ./libft
-			ar rcs $(NAME) $(OBJS)
+			$(MAKE) -C ./libft
+			cp libft/libft.a $(NAME)
+			$(CC) $(FLAGS) $(INCLUDES) $(SRCS)
+			ar -rcs $(NAME) $(OBJS)
 			ranlib $(NAME)
 
-.c.o:
-			$(CC) $(CFLAGS) $(INCLUDES) -c $< -o ${<:.c=.o}
+all : 		$(NAME)
 
-all:		$(NAME)
+bonus :		$(NAME)
 
 re:			fclean $(NAME)
 
-clean:
-			$(RM) $(OBJS)
+clean :
+			$(MAKE) clean -C ./libft
+			rm -rf $(OBJS)
 
-fclean:		clean
-			rm -f $(NAME)
+fclean :	clean
+			$(MAKE) fclean -C ./libft
+			rm -rf $(NAME)
 
 test:		$(OBJS)
 			make -C ./libft
@@ -48,4 +52,4 @@ retest:		fclean
 			rm -f $(TEST_NAME)
 			make test
 
-.PHONY:		all re clean fclean test
+re : fclean all

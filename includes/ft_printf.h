@@ -3,23 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:33:36 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/09 01:18:39 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/09 16:42:53 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	FT_PRINTF_H
+#ifndef FT_PRINTF_H
 # define FT_PRINTF_H
-# include <libft.h>
+# include "../libft/libft.h"
 # include <stdarg.h>
 # define FORMAT_LIST "cspdiuxX%"
 # define FLAGS_LIST "-# +0"
 
-#include <stdio.h>
-
-typedef struct	s_fdata
+typedef struct s_fdata
 {
 	va_list	ap;
 	int		plus;
@@ -31,6 +29,7 @@ typedef struct	s_fdata
 	int		width;
 	int		precision;
 	char	type;
+	int		neg;
 	int		clen;
 	char	*current;
 }			t_fdata;
@@ -45,7 +44,6 @@ int		ft_process_format(t_fdata *fdata);
 void	ft_fdata_init(t_fdata *fdata);
 int		ft_addprefix(t_fdata *fdata, char fillchar, int nb_fillchar);
 int		ft_addsufix(t_fdata *fdata, char fillchar, int nb_fillchar);
-int		ft_addarg(t_fdata *fdata);
 int		ft_fix_plusminus(t_fdata *fdata);
 
 int		ft_int_process(t_fdata *fdata);
@@ -62,8 +60,5 @@ int		ft_hash_process(t_fdata *fdata);
 int		ft_plus_process(t_fdata *fdata);
 int		ft_precision_string_process(t_fdata *fdata);
 int		ft_precision_number_process(t_fdata *fdata);
-
-void print_data(t_fdata *fdata, int fd);
-
 
 #endif

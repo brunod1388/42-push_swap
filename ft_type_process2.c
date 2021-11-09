@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_type_process2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 13:45:56 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/09 00:52:36 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/09 17:23:07 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "includes/ft_printf.h"
 
 int	ft_char_process(t_fdata *fdata)
 {
@@ -42,7 +42,13 @@ int	ft_percent_process(t_fdata *fdata)
 
 int	ft_string_process(t_fdata *fdata)
 {
-	fdata->current = ft_strdup(va_arg(fdata->ap, char *));
+	char	*s;
+
+	s = va_arg(fdata->ap, char *);
+	if (s)
+		fdata->current = ft_strdup(s);
+	else
+		fdata->current = ft_strdup("(null)");
 	fdata->clen = ft_strlen(fdata->current);
 	ft_precision_string_process(fdata);
 	ft_width_process(fdata);

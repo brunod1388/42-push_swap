@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_flag_process.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 13:43:07 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/09 01:47:54 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/09 17:29:04 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "includes/ft_printf.h"
 
 char	*ft_get_flag(char *format, t_fdata *fdata)
 {
@@ -87,6 +87,8 @@ int	ft_hash_process(t_fdata *fdata)
 {
 	char	*dst;
 
+	if (fdata->type != 'p' && fdata->current[0] == '0' && !fdata->current[1])
+		return (fdata->clen);
 	if (fdata->type == 'p' || fdata->hash)
 	{
 		dst = malloc(fdata->clen + 3);

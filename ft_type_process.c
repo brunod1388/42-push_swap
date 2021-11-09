@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_type_process.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 13:45:56 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/09 00:39:31 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/09 16:49:35 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "includes/ft_printf.h"
 
 int	ft_int_process(t_fdata *fdata)
 {
@@ -21,6 +21,8 @@ int	ft_int_process(t_fdata *fdata)
 	if (fdata->current == NULL)
 		return (-1);
 	fdata->clen = ft_strlen(fdata->current);
+	if (fdata->current[0] == '-')
+		fdata->neg = 1;
 	ft_precision_number_process(fdata);
 	ft_plus_process(fdata);
 	ft_space_process(fdata);

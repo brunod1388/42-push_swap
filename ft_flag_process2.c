@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_flag_process2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 13:43:07 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/09 01:19:08 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/09 16:44:06 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "includes/ft_printf.h"
 
 int	ft_plus_process(t_fdata *fdata)
 {	
@@ -35,7 +35,7 @@ int	ft_precision_number_process(t_fdata *fdata)
 {
 	char	*neg_sign;
 
-	if (fdata->precision > fdata->clen)
+	if (fdata->precision > fdata->clen - fdata->neg)
 	{
 		if (ft_addprefix(fdata, '0', fdata->precision - fdata->clen) == -1)
 			return (-1);
