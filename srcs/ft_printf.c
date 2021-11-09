@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:33:36 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/08 17:00:21 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/09 01:45:30 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,47 +31,30 @@ int	ft_process_format(t_fdata *fdata)
 	return (-1);
 }
 
-int	ft_formatlen_noarg(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (*s)
-	{
-		if (*s++ == '%')
-		{
-			while (!ft_ischarset(*s, FORMAT_LIST))
-				s++;
-			s++;
-			continue ;
-		}
-		i++;
-	}
-	return (i);
-}
-
 int	ft_printf_format(char *format, t_fdata *fdata)
-{
-	int		i;
+{	
+	int	count;
 
-	fdata->blen = ft_formatlen_noarg(format);
-	fdata->buf = ft_calloc(fdata->blen, sizeof(char));
-	i = 0;
+	count = 0;
 	while (*format)
 	{	
 		if (*format == '%')
 		{
+			//ft_fdata_init(fdata);
 			format = ft_eval_flags(format, fdata);
 			if (ft_process_format(fdata) == -1)
 				return (-1);
-			i += fdata->clen;
+			ft_putstr(fdata->current);
+			free(fdata->current);
+			count += fdata->clen;
 		}
 		else
-			fdata->buf[i++] = *format++;
+		{
+			ft_putchar(*format++);
+			count++;
+		}
 	}
-	fdata->buf[i] = 0;
-	ft_putstr(fdata->buf);
-	return (fdata->blen);
+	return (count);
 }
 
 int	ft_printf(const char *format, ...)
@@ -87,7 +70,6 @@ int	ft_printf(const char *format, ...)
 	va_start(fdata->ap, format);
 	len = ft_printf_format((char *) format, fdata);
 	va_end(fdata->ap);
-	free(fdata->buf);
 	free(fdata);
 	return (len);
 }

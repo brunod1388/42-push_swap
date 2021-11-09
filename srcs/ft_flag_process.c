@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_flag_process.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 13:43:07 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/08 17:25:37 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/09 01:47:54 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_get_flag(char *format, t_fdata *fdata)
 		if (*format == ' ')
 			fdata->space = 1;
 		if (*format == '0')
-			fdata->zero = 1; 
+			fdata->zero = 1;
 	}
 	return (format);
 }
@@ -34,14 +34,17 @@ char	*ft_eval_flags(char *format, t_fdata *fdata)
 {
 	ft_fdata_init(fdata);
 	format = ft_get_flag(format, fdata);
-	if (ft_isdigit(*format) && !fdata->precision)
+	if (ft_isdigit(*format))
 		fdata->width = ft_atoi(format);
 	while (ft_isdigit(*format))
 		format++;
 	if (*format == '.')
+	{
 		fdata->dot = 1;
-	if (format[0] == '.' && ft_isdigit(format[1]))
-		fdata->precision = ft_atoi(++format);
+		format++;
+	}
+	if (ft_isdigit(*format))
+		fdata->precision = ft_atoi(format);
 	while (ft_isdigit(*format))
 		format++;
 	if (ft_ischarset(*format, FORMAT_LIST))
@@ -84,8 +87,7 @@ int	ft_hash_process(t_fdata *fdata)
 {
 	char	*dst;
 
-	if (fdata->type == 'p'
-		|| (fdata->hash && (fdata->type == 'x' || fdata->type == 'X')))
+	if (fdata->type == 'p' || fdata->hash)
 	{
 		dst = malloc(fdata->clen + 3);
 		if (!dst)
@@ -99,7 +101,7 @@ int	ft_hash_process(t_fdata *fdata)
 		ft_strcat(dst, fdata->current);
 		free(fdata->current);
 		fdata->current = dst;
-		fdata->clen = ft_strlen(fdata->current);
+		fdata->clen += 2;
 	}
 	return (fdata->clen);
 }

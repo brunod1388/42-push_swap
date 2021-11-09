@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_type_process2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 13:45:56 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/08 17:02:27 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/09 00:52:36 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_char_process(t_fdata *fdata)
 	fdata->clen = 1;
 	ft_space_process(fdata);
 	ft_width_process(fdata);
-	return (ft_addarg(fdata));
+	return (fdata->clen);
 }
 
 int	ft_percent_process(t_fdata *fdata)
@@ -37,7 +37,7 @@ int	ft_percent_process(t_fdata *fdata)
 	fdata->current[1] = 0;
 	fdata->clen = 1;
 	ft_width_process(fdata);
-	return (ft_addarg(fdata));
+	return (fdata->clen);
 }
 
 int	ft_string_process(t_fdata *fdata)
@@ -46,5 +46,5 @@ int	ft_string_process(t_fdata *fdata)
 	fdata->clen = ft_strlen(fdata->current);
 	ft_precision_string_process(fdata);
 	ft_width_process(fdata);
-	return (ft_addarg(fdata));
+	return (fdata->clen);
 }

@@ -3,14 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 23:04:16 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/08 16:59:28 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/09 01:30:33 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
+
+void print_data(t_fdata *fdata, int fd)
+{
+	ft_putstr_fd("plus      :", fd);
+	ft_putstr_fd(ft_itoa(fdata->plus), fd);
+	ft_putstr_fd("\n", fd);
+	ft_putstr_fd("minus     :", fd);
+	ft_putstr_fd(ft_itoa(fdata->minus), fd);
+	ft_putstr_fd("\n", fd);
+	ft_putstr_fd("space     :", fd);
+	ft_putstr_fd(ft_itoa(fdata->space), fd);
+	ft_putstr_fd("\n", fd);
+	ft_putstr_fd("hash      :", fd);
+	ft_putstr_fd(ft_itoa(fdata->hash), fd);
+	ft_putstr_fd("\n", fd);
+	ft_putstr_fd("dot      :", fd);
+	ft_putstr_fd(ft_itoa(fdata->dot), fd);
+	ft_putstr_fd("\n", fd);
+	ft_putstr_fd("width     :", fd);
+	ft_putstr_fd(ft_itoa(fdata->width), fd);
+	ft_putstr_fd("\n", fd);
+	ft_putstr_fd("precision :", fd);
+	ft_putstr_fd(ft_itoa(fdata->precision), fd);
+	ft_putstr_fd("\n", fd);
+	ft_putstr_fd("type      :", fd);
+	ft_putchar_fd(fdata->type, fd);
+	ft_putstr_fd("\n", fd);
+	ft_putstr_fd("current   :", fd);
+	ft_putstr_fd(fdata->current, fd);
+	ft_putstr_fd("\n", fd);
+	ft_putstr_fd("clen      :", fd);
+	ft_putstr_fd(ft_itoa(fdata->clen), fd);
+	ft_putstr_fd("\n", fd);
+}
 
 void	ft_fdata_init(t_fdata *fdata)
 {
@@ -58,17 +92,6 @@ int	ft_addsufix(t_fdata *fdata, char fillchar, int nb_fillchar)
 	return (fdata->clen);
 }
 
-int	ft_addarg(t_fdata *fdata)
-{
-	fdata->blen += fdata->clen;
-	fdata->buf = ft_realloc(fdata->buf, fdata->blen + 1);
-	if (fdata->buf == NULL)
-		return (-1);
-	ft_strcat(fdata->buf, fdata->current);
-	free(fdata->current);
-	return (fdata->clen);
-}
-
 int	ft_fix_plusminus(t_fdata *fdata)
 {
 	char	*sign;
@@ -76,14 +99,14 @@ int	ft_fix_plusminus(t_fdata *fdata)
 	sign = ft_memchr(fdata->current, '-', fdata->clen);
 	if (sign)
 	{
-		fdata->current[0] = *sign;
+		fdata->current[0] = '-';
 		*sign = '0';
 		return (0);
 	}
 	sign = ft_memchr(fdata->current, '+', fdata->clen);
 	if (sign)
 	{
-		fdata->current[0] = *sign;
+		fdata->current[0] = '+';
 		*sign = '0';
 	}
 	return (0);

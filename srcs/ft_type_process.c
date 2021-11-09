@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_type_process.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 13:45:56 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/08 16:54:27 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/09 00:39:31 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_int_process(t_fdata *fdata)
 	ft_width_process(fdata);
 	if (fdata->zero)
 		ft_fix_plusminus(fdata);
-	return (ft_addarg(fdata));
+	return (fdata->clen);
 }
 
 int	ft_uint_process(t_fdata *fdata)
@@ -42,7 +42,7 @@ int	ft_uint_process(t_fdata *fdata)
 	ft_precision_number_process(fdata);
 	ft_plus_process(fdata);
 	ft_width_process(fdata);
-	return (ft_addarg(fdata));
+	return (fdata->clen);
 }
 
 int	ft_ulong_process(t_fdata *fdata)
@@ -56,7 +56,7 @@ int	ft_ulong_process(t_fdata *fdata)
 	fdata->clen = ft_strlen(fdata->current);
 	ft_hash_process(fdata);
 	ft_width_process(fdata);
-	return (ft_addarg(fdata));
+	return (fdata->clen);
 }
 
 int	ft_hex_process(t_fdata *fdata)
@@ -71,8 +71,8 @@ int	ft_hex_process(t_fdata *fdata)
 	if (fdata->current == NULL)
 		return (-1);
 	fdata->clen = ft_strlen(fdata->current);
-	ft_plus_process(fdata);
+	ft_precision_number_process(fdata);
 	ft_hash_process(fdata);
 	ft_width_process(fdata);
-	return (ft_addarg(fdata));
+	return (fdata->clen);
 }
