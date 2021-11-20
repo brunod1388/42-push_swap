@@ -1,44 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/25 17:33:45 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/20 00:18:24 by bgoncalv         ###   ########.fr       */
+/*   Created: 2021/10/25 17:21:49 by bgoncalv          #+#    #+#             */
+/*   Updated: 2021/11/20 00:24:23 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
-char	*ft_strdup(const char *src)
-{
-	char	*dest;
-
-	dest = malloc(ft_strlen(src) + 1);
-	if (dest == NULL)
+t_list	*ft_lstlast(t_list *lst)
+{	
+	if (!lst)
 		return (NULL);
-	ft_strlcpy(dest, src, ft_strlen(src) + 1);
-	return (dest);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
 }
 
-char	*ft_strldup(char *src, size_t l)
+t_list	*ft_lstprelast(t_list *lst)
 {
-	char	*dst;
-	size_t	i;
-
-	if (!src)
+	if (!lst)
 		return (NULL);
-	dst = malloc(l);
-	if (dst == NULL)
+	if (!lst->next)
 		return (NULL);
-	i = 0;
-	while (src[i] && i < l - 1)
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = 0;
-	return (dst);
+	while (lst->next->next)
+		lst = lst->next;
+	return (lst);
 }

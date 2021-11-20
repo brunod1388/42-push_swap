@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:21:49 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/08 17:05:50 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/20 00:17:14 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,20 @@ char	*ft_strcpy(char *dst, const char *src)
 	}
 	*dst = 0;
 	return (d);
+}
+
+char	*ft_strncpy(char *dst, char *src, size_t size)
+{
+	size_t	i;
+
+	i = 0;
+	while (src[i] && i < size - 1)
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = 0;
+	return (dst);
 }
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)

@@ -1,38 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lft_lstmap_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:21:49 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/10/25 17:23:00 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/20 00:25:18 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+int	ft_lstsize(t_list *lst)
 {
-	t_list	*dst;
-	t_list	*tmp;
+	int	i;
 
-	if (!lst || !f)
-		return (NULL);
-	tmp = ft_lstnew(f(lst->content));
-	dst = tmp;
-	if (!tmp)
-		return (NULL);
-	while (lst->next)
+	i = 0;
+	while (lst)
 	{
 		lst = lst->next;
-		tmp->next = ft_lstnew(f(lst->content));
-		tmp = tmp->next;
-		if (tmp == NULL)
-		{
-			ft_lstclear(&dst, del);
-			return (NULL);
-		}
+		i++;
 	}
-	return (dst);
+	return (i);
+}
+
+void	*ft_getnblist(t_list *lst, int nb)
+{
+	int	i;
+
+	if (nb >= ft_lstsize(lst))
+		return (NULL);
+	i = 0;
+	while (i++ < nb)
+		lst = lst->next;
+	return (lst->content);
 }

@@ -2,7 +2,13 @@ CC		= gcc
 
 CFLAGS	= -Wall -Wextra -Werror
 
-SRCS	=	ft_isalpha.c \
+SRCS	=	printf/ft_flag_process.c \
+			printf/ft_flag_process2.c \
+			printf/ft_type_process.c \
+			printf/ft_type_process2.c \
+			printf/ft_printf_utils.c \
+			ft_printf.c \
+			ft_isalpha.c \
 			ft_isdigit.c \
 			ft_isalnum.c \
 			ft_isascii.c \
@@ -39,15 +45,16 @@ SRCS	=	ft_isalpha.c \
 			ft_putendl.c \
 			ft_putnbr.c \
 			ft_putnbr_base.c \
-			ft_lstnew_bonus.c \
-			ft_lstadd_front_bonus.c \
-			ft_lstsize_bonus.c \
-			ft_lstlast_bonus.c \
-			ft_lstadd_back_bonus.c \
-			ft_lstdelone_bonus.c \
-			ft_lstclear_bonus.c \
-			ft_lstiter_bonus.c \
-			ft_lstmap_bonus.c
+			lst/ft_lstnew.c \
+			lst/ft_lstadd_front.c \
+			lst/ft_lstsize.c \
+			lst/ft_lstlast.c \
+			lst/ft_lstadd_back.c \
+			lst/ft_lstdelone.c \
+			lst/ft_lstclear.c \
+			lst/ft_lstiter.c \
+			lst/ft_lstmap.c \
+			get_next_line.c
 
 OBJS	= ${SRCS:.c=.o}
 
@@ -69,4 +76,4 @@ clean:
 fclean:		clean
 			$(RM) $(NAME)
 
-.PHONY:		all re clean fclean bin cleantest
+.PHONY:		all re clean fclean bin cleantest test

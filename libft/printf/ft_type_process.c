@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_type_process.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 13:45:56 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/09 16:49:35 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/17 23:49:00 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/ft_printf.h"
+#include "ft_printf.h"
 
 int	ft_int_process(t_fdata *fdata)
 {

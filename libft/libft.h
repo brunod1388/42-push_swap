@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:21:49 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/09 01:15:19 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/20 00:26:22 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 # define LIBFT_H
 # include <unistd.h>
 # include <stdlib.h>
+# define MAX_TAB 4096
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 256
+# endif
 
 typedef struct s_list
 {
@@ -33,6 +37,7 @@ int		ft_tolower(int c);
 
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
+char	*ft_strncpy(char *dst, char *src, size_t size);
 char	*ft_strcpy(char *dst, const char *src);
 char	*ft_strcat(char *dst, const char *src);
 char	*ft_strncat(char *dst, const char *src, size_t n);
@@ -58,8 +63,10 @@ void	*ft_calloc(size_t count, size_t size);
 void	*ft_realloc(void *pt, size_t size);
 
 char	*ft_strdup(const char *src);
+char	*ft_strldup(char *src, size_t l);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
 char	*ft_strjoin(const char *s1, const char *s2);
+char	*ft_strljoin(char *s1, char *s2, size_t l);
 char	*ft_strtrim(const char *s1, const char *set);
 char	*ft_itoa(int n);
 char	*ft_uitoa(unsigned int n);
@@ -81,8 +88,12 @@ void	ft_putendl(char *s);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_putnbr(int n);
 void	ft_putnbr_base(int n, char *base);
+char	*get_next_line(int fd);
+
+int		ft_printf(const char *format, ...);
 
 t_list	*ft_lstnew(void *content);
+t_list	*ft_lstprelast(t_list *lst);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_front(t_list **alst, t_list *new);
 void	ft_lstadd_back(t_list **alst, t_list *new);
@@ -91,5 +102,6 @@ void	ft_lstclear(t_list **lst, void (*del)(void*));
 int		ft_lstsize(t_list *lst);
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+void	*ft_getnblist(t_list *lst, int nb);
 
 #endif
