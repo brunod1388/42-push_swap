@@ -54,6 +54,9 @@ SRCS	=	printf/ft_flag_process.c \
 			lst/ft_lstclear.c \
 			lst/ft_lstiter.c \
 			lst/ft_lstmap.c \
+			dlst/ft_dlst.c \
+			dlst/ft_dlstnode.c \
+			dlst/ft_dlst_utils.c \
 			get_next_line.c
 
 OBJS	= ${SRCS:.c=.o}

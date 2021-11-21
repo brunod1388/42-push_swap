@@ -1,40 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   ft_push_swap.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/25 17:21:49 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/21 18:52:48 by bgoncalv         ###   ########.fr       */
+/*   Created: 2021/11/21 19:34:29 by bgoncalv          #+#    #+#             */
+/*   Updated: 2021/11/22 00:45:52 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#ifndef FT_PUSH_SWAP_H
+# define FT_PUSH_SWAP_H
 
-int	ft_lstsize(t_list *lst)
-{
-	int	i;
+void	test(void);
+void	elswap(t_dlist *dl);
+void	elpush(t_dlist *a, t_dlist *b);
+void	elrotate(t_dlist *dl);
+void	elreverse(t_dlist *dl);
+void	do_op(t_dlist *a, t_dlist *b, char *op);
 
-	if (!lst)
-		return (0);
-	i = 0;
-	while (lst)
-	{
-		lst = lst->next;
-		i++;
-	}
-	return (i);
-}
+void	print_stacks(t_dlist *a, t_dlist *b);
 
-void	*ft_getnblist(t_list *lst, int nb)
-{
-	int	i;
-
-	if (nb >= ft_lstsize(lst))
-		return (NULL);
-	i = 0;
-	while (i++ < nb)
-		lst = lst->next;
-	return (lst->content);
-}
+#endif

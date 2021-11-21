@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:21:49 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/20 00:26:22 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/21 22:58:54 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,23 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
+typedef struct s_node
+{
+	struct s_node	*prev;
+	struct s_node	*next;
+	void			*content;
+}	t_node;
+
+typedef struct s_dlist
+{
+	size_t	length;
+	t_node	*first;
+	t_node	*last;
+}	t_dlist;
+
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
+int		ft_isnumber(char *s);
 int		ft_isascii(int c);
 int		ft_isalnum(int c);
 int		ft_isprint(int c);
@@ -88,9 +103,10 @@ void	ft_putendl(char *s);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_putnbr(int n);
 void	ft_putnbr_base(int n, char *base);
-char	*get_next_line(int fd);
 
 int		ft_printf(const char *format, ...);
+
+char	*get_next_line(int fd);
 
 t_list	*ft_lstnew(void *content);
 t_list	*ft_lstprelast(t_list *lst);
@@ -103,5 +119,17 @@ int		ft_lstsize(t_list *lst);
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 void	*ft_getnblist(t_list *lst, int nb);
+
+t_dlist	*ft_dlnew(void);
+t_dlist	*ft_dladdfirst(t_dlist *dl, void *content);
+t_dlist	*ft_dladdlast(t_dlist *dl, void *content);
+t_node	*ft_dlpushfirst(t_dlist *dl);
+t_node	*ft_dlpushlast(t_dlist *dl);
+t_dlist	*ft_dlputfirst(t_dlist *dl, t_node *node);
+t_dlist	*ft_dlputlast(t_dlist *dl, t_node *node);
+int		ft_dlisordered(t_dlist *dl, int (*f)(void *, void *));
+void	*ft_dlgetcontent(t_dlist *dl, size_t i);
+void	ft_dlclear(t_dlist **dl);
+void	ft_printdlsti(t_dlist *dl, int rev);
 
 #endif

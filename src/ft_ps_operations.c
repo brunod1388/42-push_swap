@@ -1,69 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_operations.c                                    :+:      :+:    :+:   */
+/*   ft_ps_operations.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 00:28:34 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/20 00:32:36 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/22 00:37:42 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 
-void	elswap(t_list *l)
+void	elswap(t_dlist *dl)
 {
 	void	*tmp;
 
-	tmp = l->next->content;
-	l->next->content = l->content;
-	l->content = tmp;
+	tmp = dl->first->content;
+	dl->first->content = dl->first->next->content;
+	dl->first->next->content = tmp;
 }
 
-void	elpush(t_list **a, t_list **b)
+void	elpush(t_dlist *a, t_dlist *b)
 {
-	t_list	*tmp;
-
-	if (!*b)
-		return ;
-	tmp = (*b)->next;
-	(*b)->next = NULL;
-	ft_lstadd_front(a,*b);
-	*b = tmp;
+	ft_dladdfirst(a, ft_dlpushfirst(b));
 }
 
-void	elrotate(t_list **l)
+void	elrotate(t_dlist *dl)
 {
-	t_list	*tmp;
-
-	if (!*l || !(*l)->next)
-		return ;
-	tmp = (*l)->next;
-	(*l)->next = NULL;
-	ft_lstadd_back(&tmp, *l);
-	*l = tmp;
+	ft_dlputlast(dl, ft_dlpushfirst(dl));
 }
 
-void	elreverse(t_list **l)
+void	elreverse(t_dlist *dl)
 {
-	t_list	*prelast;
-
-	if (!*l || !(*l)->next)
-		return ;
-	prelast = ft_lstprelast(*l);
-	ft_lstadd_front(l, prelast->next);
-	prelast->next = NULL;
+	ft_dlputfirst(dl, ft_dlpushlast(dl));
 }
 
-void	do_op(t_list **a, t_list **b, char *op)
+void	do_op(t_dlist *a, t_dlist *b, char *op)
 {
 	if (op[0] == 's')
 	{
 		if (op[1] == 'a' || op[1] == 's')
-			elswap(*a);
+			elswap(a);
 		if (op[1] == 'b' || op[1] == 's')
-			elswap(*b);
+			elswap(b);
 	}
 	else if (op[0] == 'p' && op[1] == 'b')
 		elpush(b, a);

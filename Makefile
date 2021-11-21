@@ -1,8 +1,14 @@
 LIBFT	= ./libft/libft.a
 LIBS	= -L./libft -lft
 
-NAME = push_swap
-SRCS =	ft_push_swap.c
+NAME	=	push_swap
+SRCS	=	ft_push_swap.c \
+			src/ft_ps_operations.c \
+			src/ft_ps_utils.c
+
+TEST_DL		=	test_dl
+TEST_DLSRCS	=	tests/ft_dl_test.c
+TEST_DLOBJS	=	$(TEST_SRCS:.c=.o)
 
 CC = gcc
 
@@ -28,9 +34,10 @@ fclean :	clean
 			$(MAKE) fclean -C ./libft
 			rm -rf $(NAME)
 
-test:		
-			rm $(NAME)
-			make
+dltest:		$(TEST_DLOBJS)
+			$(MAKE) -C ./libft
+			rm -f $(TEST_DL)
+			$(CC) $(FLAGS) $(TEST_DLSRCS) $(LIBS) -o $(TEST_DL) 
 
 # test:		$(OBJS)
 # 			make -C ./libft
@@ -41,4 +48,4 @@ test:
 # 			rm -f $(TEST_NAME)
 # 			make test
 
-re : fclean all
+PHONY : fclean all test re
