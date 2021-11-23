@@ -1,34 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_push_swap.c                                     :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/21 19:30:50 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/23 21:45:22 by bgoncalv         ###   ########.fr       */
+/*   Created: 2021/10/25 17:21:49 by bgoncalv          #+#    #+#             */
+/*   Updated: 2021/11/22 20:54:19 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "ft_push_swap.h"
+#include "../libft.h"
 
-int	main(int argc, char **argv)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	t_dlist	*a;
-	t_dlist	*b;
+	size_t	i;
 
-	if (argc == 1)
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i] && i < n)
+		i++;
+	if (i == n)
 		return (0);
-	a = ft_atodl(argc, argv);
-	b = ft_dlnew();
-	if (!a)
-	{
-		ft_putstr("Error\n");
-		return (0);
-	}
-	print_stacks(a, b);
-	ft_dlclear(&a);
-	ft_dlclear(&b);
-	return (0);
+	return ((unsigned char) s1[i] - (unsigned char) s2[i]);
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	size_t	i;
+
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	return ((unsigned char) s1[i] - (unsigned char) s2[i]);
 }

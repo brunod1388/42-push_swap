@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_push_swap.c                                     :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/21 19:30:50 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/23 21:45:22 by bgoncalv         ###   ########.fr       */
+/*   Created: 2021/10/25 17:21:49 by bgoncalv          #+#    #+#             */
+/*   Updated: 2021/11/22 20:53:06 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "ft_push_swap.h"
+#include "../libft.h"
 
-int	main(int argc, char **argv)
+void	ft_putchar_fd(char c, int fd)
 {
-	t_dlist	*a;
-	t_dlist	*b;
+	write(fd, &c, 1);
+}
 
-	if (argc == 1)
-		return (0);
-	a = ft_atodl(argc, argv);
-	b = ft_dlnew();
-	if (!a)
-	{
-		ft_putstr("Error\n");
-		return (0);
-	}
-	print_stacks(a, b);
-	ft_dlclear(&a);
-	ft_dlclear(&b);
-	return (0);
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
 }

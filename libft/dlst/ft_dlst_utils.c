@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 15:27:48 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/21 23:16:11 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/22 18:59:56 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,7 @@ void static	ft_printilist(t_dlist *dl, int rev)
 	}
 }
 
-int	ft_isbigger(void *a, void *b)
-{
-	return (*(int *)a > *(int *)b);
-}
-
-void	ft_printdlsti(t_dlist *dl, int rev)
+void	ft_printdlsti(t_dlist *dl, int rev, int (*f)(void *, void *))
 {
 	if (!dl)
 	{
@@ -71,5 +66,5 @@ void	ft_printdlsti(t_dlist *dl, int rev)
 	}
 	ft_printilist(dl, rev);
 	ft_printf("\n");
-	ft_printf("is ordered : %i\n", ft_dlisordered(dl, ft_isbigger));
+	ft_printf("is ordered : %i\n", ft_dlisordered(dl, f));
 }

@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_push_swap.c                                     :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/21 19:30:50 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/23 21:45:22 by bgoncalv         ###   ########.fr       */
+/*   Created: 2021/10/25 17:21:49 by bgoncalv          #+#    #+#             */
+/*   Updated: 2021/11/22 20:54:03 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "ft_push_swap.h"
+#include "../libft.h"
 
-int	main(int argc, char **argv)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	t_dlist	*a;
-	t_dlist	*b;
+	char	*d;
+	size_t	i;
 
-	if (argc == 1)
-		return (0);
-	a = ft_atodl(argc, argv);
-	b = ft_dlnew();
-	if (!a)
+	if (!s || !f)
+		return (NULL);
+	d = malloc(ft_strlen(s) + 1);
+	if (d == NULL)
+		return (NULL);
+	i = 0;
+	while (s[i])
 	{
-		ft_putstr("Error\n");
-		return (0);
+		d[i] = f(i, s[i]);
+		i++;
 	}
-	print_stacks(a, b);
-	ft_dlclear(&a);
-	ft_dlclear(&b);
-	return (0);
+	d[i] = 0;
+	return (d);
 }

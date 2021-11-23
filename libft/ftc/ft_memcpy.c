@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_push_swap.c                                     :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/21 19:30:50 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/23 21:45:22 by bgoncalv         ###   ########.fr       */
+/*   Created: 2021/10/25 17:35:27 by bgoncalv          #+#    #+#             */
+/*   Updated: 2021/11/22 20:52:30 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "ft_push_swap.h"
+#include "../libft.h"
 
-int	main(int argc, char **argv)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	t_dlist	*a;
-	t_dlist	*b;
+	char	*d;
+	char	*s;
 
-	if (argc == 1)
-		return (0);
-	a = ft_atodl(argc, argv);
-	b = ft_dlnew();
-	if (!a)
-	{
-		ft_putstr("Error\n");
-		return (0);
-	}
-	print_stacks(a, b);
-	ft_dlclear(&a);
-	ft_dlclear(&b);
-	return (0);
+	if (!dst && !src && n)
+		return (NULL);
+	d = (char *) dst;
+	s = (char *) src;
+	while (n--)
+		*d++ = *s++;
+	return (dst);
 }

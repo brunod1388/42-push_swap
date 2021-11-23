@@ -6,61 +6,54 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 00:28:34 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/22 00:37:42 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/23 21:46:00 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "../ft_push_swap.h"
 
-void	elswap(t_dlist *dl)
+static void	swap(t_dlist *dl)
 {
 	void	*tmp;
 
+	if (dl->length < 2)
+		return ;
 	tmp = dl->first->content;
 	dl->first->content = dl->first->next->content;
 	dl->first->next->content = tmp;
 }
 
-void	elpush(t_dlist *a, t_dlist *b)
+static void	push(t_dlist *a, t_dlist *b)
 {
-	ft_dladdfirst(a, ft_dlpushfirst(b));
+	ft_dlputfirst(a, ft_dlpushfirst(b));
 }
 
-void	elrotate(t_dlist *dl)
+static void	rotate(t_dlist *dl)
 {
 	ft_dlputlast(dl, ft_dlpushfirst(dl));
 }
 
-void	elreverse(t_dlist *dl)
+static void	reverse(t_dlist *dl)
 {
 	ft_dlputfirst(dl, ft_dlpushlast(dl));
 }
 
 void	do_op(t_dlist *a, t_dlist *b, char *op)
 {
-	if (op[0] == 's')
-	{
-		if (op[1] == 'a' || op[1] == 's')
-			elswap(a);
-		if (op[1] == 'b' || op[1] == 's')
-			elswap(b);
-	}
-	else if (op[0] == 'p' && op[1] == 'b')
-		elpush(b, a);
-	else if (op[0] == 'p' && op[1] == 'a')
-		elpush(a, b);
-	else if (ft_strlen(op) == 2 && op[0] == 'r')
-	{
-		if (op[1] == 'a' || op[1] == 'r')
-			elrotate(a);
-		if (op[1] == 'a' || op[1] == 'r')
-			elrotate(b);
-	}
-	else if (ft_strlen(op) == 3 && op[0] == 'r' && op[1] == 'r')
-	{
-		if (op[2] == 'a' || op[2] == 'r')
-			elreverse(a);
-		if (op[2] == 'a' || op[2] == 'r')
-			elreverse(b);
-	}
+	if (!ft_strcmp(op, SA) || !ft_strcmp(op, SS))
+		swap(a);
+	if (!ft_strcmp(op, SB) || !ft_strcmp(op, SS))
+		swap(b);
+	if (!ft_strcmp(op, PA))
+		push(b, a);
+	if (!ft_strcmp(op, PB))
+		push(a, b);
+	if (!ft_strcmp(op, RA) || !ft_strcmp(op, RR))
+		rotate(a);
+	if (!ft_strcmp(op, RB) || !ft_strcmp(op, RR))
+		rotate(b);
+	if (!ft_strcmp(op, RRA) || !ft_strcmp(op, RRR))
+		reverse(a);
+	if (!ft_strcmp(op, RRB) || !ft_strcmp(op, RRR))
+		reverse(b);
 }

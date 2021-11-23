@@ -4,11 +4,18 @@ LIBS	= -L./libft -lft
 NAME	=	push_swap
 SRCS	=	ft_push_swap.c \
 			src/ft_ps_operations.c \
-			src/ft_ps_utils.c
+			src/ft_ps_process.c \
+			src/ft_ps_utils.c \
+			src/ft_printstacks.c
 
 TEST_DL		=	test_dl
-TEST_DLSRCS	=	tests/ft_dl_test.c
-TEST_DLOBJS	=	$(TEST_SRCS:.c=.o)
+TEST_DLSRCS	=	.tests/ft_dl_test.c
+TEST_DLOBJS	=	$(TEST_DLSRCS:.c=.o)
+
+TEST_PSSRCS	=	.tests/ft_push_swap_test.c \
+				src/ft_ps_operations.c \
+				src/ft_printstacks.c
+TEST_DLOBJS	=	$(TEST_PSSRCS:.c=.o)
 
 CC = gcc
 
@@ -24,20 +31,25 @@ all : 		$(NAME)
 
 bonus :		$(NAME)
 
-re:			fclean $(NAME)
+re:			clean 
+			$(MAKE) $(NAME)
 
 clean :
-			$(MAKE) clean -C ./libft
-			rm -rf $(OBJS)
+			rm -rf $(OBJS) $(NAME)
 
 fclean :	clean
 			$(MAKE) fclean -C ./libft
 			rm -rf $(NAME)
 
+pstest:		$(TEST_PSOBJS)
+			$(MAKE) -C ./libft
+			rm -f $(TEST_DL)
+			$(CC) $(FLAGS) $(TEST_PSSRCS) $(LIBS) -o push_swap_test 
+
 dltest:		$(TEST_DLOBJS)
 			$(MAKE) -C ./libft
 			rm -f $(TEST_DL)
-			$(CC) $(FLAGS) $(TEST_DLSRCS) $(LIBS) -o $(TEST_DL) 
+			$(CC) $(FLAGS) $(TEST_DLSRCS) $(LIBS) -o $(TEST_DL)
 
 # test:		$(OBJS)
 # 			make -C ./libft

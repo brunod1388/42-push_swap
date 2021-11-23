@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:21:49 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/21 22:58:54 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/22 20:47:29 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ void	ft_bzero(void *s, size_t n);
 void	*ft_memset(void *s, int c, size_t len);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 void	*ft_memmove(void *dst, const void *src, size_t n);
-
 void	*ft_memchr(const void *s, int c, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
+
 void	*ft_calloc(size_t count, size_t size);
 void	*ft_realloc(void *pt, size_t size);
 
@@ -105,7 +105,6 @@ void	ft_putnbr(int n);
 void	ft_putnbr_base(int n, char *base);
 
 int		ft_printf(const char *format, ...);
-
 char	*get_next_line(int fd);
 
 t_list	*ft_lstnew(void *content);
@@ -130,6 +129,6 @@ t_dlist	*ft_dlputlast(t_dlist *dl, t_node *node);
 int		ft_dlisordered(t_dlist *dl, int (*f)(void *, void *));
 void	*ft_dlgetcontent(t_dlist *dl, size_t i);
 void	ft_dlclear(t_dlist **dl);
-void	ft_printdlsti(t_dlist *dl, int rev);
+void	ft_printdlsti(t_dlist *dl, int rev, int (*f)(void *, void *));
 
 #endif

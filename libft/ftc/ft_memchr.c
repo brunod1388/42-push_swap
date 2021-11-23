@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_push_swap.c                                     :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/21 19:30:50 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/23 21:45:22 by bgoncalv         ###   ########.fr       */
+/*   Created: 2021/10/25 17:35:16 by bgoncalv          #+#    #+#             */
+/*   Updated: 2021/11/22 20:52:12 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "ft_push_swap.h"
+#include "../libft.h"
 
-int	main(int argc, char **argv)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	t_dlist	*a;
-	t_dlist	*b;
+	unsigned char	*d;
 
-	if (argc == 1)
-		return (0);
-	a = ft_atodl(argc, argv);
-	b = ft_dlnew();
-	if (!a)
+	d = (unsigned char *) s;
+	while (n--)
 	{
-		ft_putstr("Error\n");
-		return (0);
+		if (*d == (unsigned char) c)
+			return (d);
+		d++;
 	}
-	print_stacks(a, b);
-	ft_dlclear(&a);
-	ft_dlclear(&b);
-	return (0);
+	return (NULL);
 }

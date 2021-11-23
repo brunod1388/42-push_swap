@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 14:54:02 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/21 23:06:59 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/23 21:13:31 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ t_dlist	*ft_dladdfirst(t_dlist *dl, void *content)
 		dl->first = node;
 		dl->last = node;
 	}
-	dl->length++;
+	if (node)
+		dl->length++;
 	return (dl);
 }
 
@@ -73,7 +74,8 @@ t_dlist	*ft_dladdlast(t_dlist *dl, void *content)
 		dl->first = node;
 		dl->last = node;
 	}
-	dl->length++;
+	if (node)
+		dl->length++;
 	return (dl);
 }
 

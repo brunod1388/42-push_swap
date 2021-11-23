@@ -1,34 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_push_swap.c                                     :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/21 19:30:50 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/23 21:45:22 by bgoncalv         ###   ########.fr       */
+/*   Created: 2021/10/25 17:21:49 by bgoncalv          #+#    #+#             */
+/*   Updated: 2021/11/22 20:53:18 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "ft_push_swap.h"
+#include "../libft.h"
 
-int	main(int argc, char **argv)
+void	ft_putnbr_fd(int n, int fd)
 {
-	t_dlist	*a;
-	t_dlist	*b;
-
-	if (argc == 1)
-		return (0);
-	a = ft_atodl(argc, argv);
-	b = ft_dlnew();
-	if (!a)
+	if (n == 0)
+		ft_putchar_fd('0', fd);
+	else if (n < 0)
 	{
-		ft_putstr("Error\n");
-		return (0);
+		ft_putchar_fd('-', fd);
+		if (n < -9)
+			ft_putnbr_fd(-(n / 10), fd);
+		ft_putchar_fd('0' + (-(long) n % 10), fd);
 	}
-	print_stacks(a, b);
-	ft_dlclear(&a);
-	ft_dlclear(&b);
-	return (0);
+	else
+	{	
+		if (n > 9)
+			ft_putnbr_fd(n / 10, fd);
+		ft_putchar_fd('0' + n % 10, fd);
+	}
+}
+
+void	ft_putnbr(int n)
+{
+	ft_putnbr_fd(n, 1);
 }

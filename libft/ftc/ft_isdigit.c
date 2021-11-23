@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_push_swap.c                                     :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/21 19:30:50 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/23 21:45:22 by bgoncalv         ###   ########.fr       */
+/*   Created: 2021/10/25 17:41:56 by bgoncalv          #+#    #+#             */
+/*   Updated: 2021/11/23 21:45:01 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "ft_push_swap.h"
+#include "../libft.h"
 
-int	main(int argc, char **argv)
+int	ft_isdigit(int c)
 {
-	t_dlist	*a;
-	t_dlist	*b;
+	return ('0' <= c && c <= '9');
+}
 
-	if (argc == 1)
+int	ft_isnumber(char *s)
+{
+	if (!s)
 		return (0);
-	a = ft_atodl(argc, argv);
-	b = ft_dlnew();
-	if (!a)
+	if (*s == '-')
+		s++;
+	while (*s)
 	{
-		ft_putstr("Error\n");
-		return (0);
+		if (*s < '0' || '9' < *s)
+			return (0);
+		s++;
 	}
-	print_stacks(a, b);
-	ft_dlclear(&a);
-	ft_dlclear(&b);
-	return (0);
+	return (1);
 }

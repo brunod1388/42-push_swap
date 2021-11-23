@@ -5,102 +5,65 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/20 00:29:44 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/22 00:55:19 by bgoncalv         ###   ########.fr       */
+/*   Created: 2021/11/23 20:54:56 by bgoncalv          #+#    #+#             */
+/*   Updated: 2021/11/23 21:45:04 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "../ft_push_swap.h"
 
-// int	ft_isbigger(void *a, void *b)
-// {
-// 	return (*(int *)a > *(int *)b);
-// }
-
-static int	getilen(int x)
+int	ft_iscommand(char *s)
 {
-	if (x <= -100000000 || x >= 1000000000)
-		return 10;
-	if (x <= -10000000 || x >= 100000000)
-		return 9;
-	if (x <= -1000000 || x >= 10000000)
-		return 8;
-	if (x <= -100000 || x >= 1000000)
-		return 7;
-	if (x <= -10000 || x >= 100000)
-		return 6;
-	if (x <= -1000 || x >= 10000)
-		return 5;
-	if (x <= -100 || x >= 1000)
-		return 4;
-	if (x <= -10 || x >= 100)
-		return 3;
-	if (x <= -1 || x >= 10)
-		return 2;
-	return 1;
+	if (!ft_strcmp(s, SA))
+		return (1);
+	if (!ft_strcmp(s, SB))
+		return (1);
+	if (!ft_strcmp(s, PA))
+		return (1);
+	if (!ft_strcmp(s, PB))
+		return (1);
+	if (!ft_strcmp(s, RA))
+		return (1);
+	if (!ft_strcmp(s, RB))
+		return (1);
+	if (!ft_strcmp(s, RRA))
+		return (1);
+	if (!ft_strcmp(s, RRB))
+		return (1);
+	return (0);
 }
 
-static int	get_maxlcontent(t_dlist *a)
+int	ft_isarok(int argc, char **argv)
 {
-	t_node 	*current;
-	int		maxl;
-	int		l;
+	int	i;
 
-	maxl = 0;
-	l = 0;
-	current = a->first;
-	while (current)
-	{
-		l = getilen(*(int *)current->content);
-		if (l > maxl)
-			maxl = l;
-		current = current->next;
-	}
-	return (maxl);
+	i = 0;
+	while (++i < argc)
+		if (!ft_isnumber(argv[i]))
+			return (0);
+	return (1);
 }
 
-static void	ft_printformatnode(t_node *a, int l, char c)
+t_dlist	*ft_atodl(int argc, char **argv)
 {
-	char	*s;
+	t_dlist	*dl;
+	int		*pi;
 	int		i;
 
-	s = ft_itoa(*(int *)a->content);
-	i = l - (int) ft_strlen(s);
-	while (i--)
-		ft_putchar(c);
-	ft_putstr(s);
-}
-
-void	print_stacks(t_dlist *a, t_dlist *b)
-{
-	size_t	i;
-	int		nchara;
-	int		ncharb;
-	t_node	*currenta;
-	t_node	*currentb;
-
-	nchara = get_maxlcontent(a);
-	ncharb = get_maxlcontent(b);
-	if (a->length > b->length)
-		i = a->length;
-	if (a->length < b->length)
-		i = b->length;
-	ft_printf("TSAMERRRRREE\n");
-	currenta = a->first;
-	currentb = b->first;
-	while (i--)
+	if (!ft_isarok(argc, argv))
+		return (NULL);
+	dl = ft_dlnew();
+	i = 0;
+	while (++i < argc)
 	{
-		if (i > a->length)
-			ft_printformatnode(currenta, nchara, ' ');
-		else
-			ft_printformatnode(NULL, nchara, ' ');
-		ft_putchar(' ');
-		if (i > b->length)
-			ft_printformatnode(currentb, ncharb, ' ');
-		else
-			ft_printformatnode(NULL, ncharb, ' ');
-		ft_putchar('\n');
+		pi = malloc(sizeof(int));
+		if (!pi)
+		{
+			ft_dlclear(&dl);
+			return (NULL);
+		}
+		*pi = ft_atoi(argv[i]);
+		ft_dladdlast(dl, pi);
 	}
-	ft_printf("_ _\n");
-	ft_printf("a b\n");
+	return (dl);
 }
