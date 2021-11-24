@@ -6,13 +6,13 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 15:27:48 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/22 18:59:56 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/23 23:37:38 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-int	ft_dlisordered(t_dlist *dl, int (*f)(void *, void *))
+int	ft_dlisordered(t_dlist *dl, int (*f)(t_node *, t_node *))
 {
 	t_node	*current;
 
@@ -23,7 +23,7 @@ int	ft_dlisordered(t_dlist *dl, int (*f)(void *, void *))
 	current = dl->first;
 	while (current->next)
 	{
-		if (f(current->content, current->next->content))
+		if (f(current, current->next))
 			return (0);
 		current = current->next;
 	}
@@ -57,7 +57,7 @@ void static	ft_printilist(t_dlist *dl, int rev)
 	}
 }
 
-void	ft_printdlsti(t_dlist *dl, int rev, int (*f)(void *, void *))
+void	ft_printdlsti(t_dlist *dl, int rev, int (*f)(t_node *, t_node *))
 {
 	if (!dl)
 	{

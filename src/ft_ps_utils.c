@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 20:54:56 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/23 21:45:04 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/24 22:52:35 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,28 @@ int	ft_iscommand(char *s)
 	return (0);
 }
 
-int	ft_isarok(int argc, char **argv)
+int	*ft_dltoit(t_dlist *dl)
+{
+	t_node	*current;
+	int		*i_tab;
+	int		i;
+
+	if (!dl || dl->length == 0)
+		return (NULL);
+	i_tab = malloc(sizeof(int) * dl->length);
+	if (!i_tab)
+		return (NULL);
+	current = dl->first;
+	i = 0;
+	while (current)
+	{
+		i_tab[i++] = *(int *)current->content;
+		current = current->next;
+	}
+	return (i_tab);
+}
+
+static int	ft_isarok(int argc, char **argv)
 {
 	int	i;
 
@@ -67,3 +88,12 @@ t_dlist	*ft_atodl(int argc, char **argv)
 	}
 	return (dl);
 }
+
+// void	printArray(int arr[], int size)
+// {
+// 	int	i;
+
+// 	for (i=0; i < size; i++)
+// 		ft_printf("%d ", arr[i]);
+// 	ft_printf("\n");
+// }

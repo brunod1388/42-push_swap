@@ -8,7 +8,12 @@ SRCS	=	printf/ft_flag_process.c \
 			printf/ft_type_process2.c \
 			printf/ft_printf_utils.c \
 			printf/ft_printf.c \
+			sort/ft_bubsort.c \
+			sort/ft_quicksort.c \
+			math/ft_sqrt.c \
+			math/ft_abs.c \
 			ftc/ft_isalpha.c \
+			ftc/ft_swap.c \
 			ftc/ft_isdigit.c \
 			ftc/ft_isalnum.c \
 			ftc/ft_isascii.c \

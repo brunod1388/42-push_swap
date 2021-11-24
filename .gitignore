@@ -19,3 +19,6 @@
 ##################
 bin/*
 *.o
+push_swap
+push_swap_test
+test_dl

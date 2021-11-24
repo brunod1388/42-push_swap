@@ -6,6 +6,8 @@ SRCS	=	ft_push_swap.c \
 			src/ft_ps_operations.c \
 			src/ft_ps_process.c \
 			src/ft_ps_utils.c \
+			src/ft_ps_solve.c \
+			src/ft_ps_solve_big.c \
 			src/ft_printstacks.c
 
 TEST_DL		=	test_dl
@@ -14,6 +16,7 @@ TEST_DLOBJS	=	$(TEST_DLSRCS:.c=.o)
 
 TEST_PSSRCS	=	.tests/ft_push_swap_test.c \
 				src/ft_ps_operations.c \
+				src/ft_ps_process.c \
 				src/ft_printstacks.c
 TEST_DLOBJS	=	$(TEST_PSSRCS:.c=.o)
 

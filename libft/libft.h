@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:21:49 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/22 20:47:29 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/24 22:48:25 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,10 @@ char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 
+void	ft_swap(int *a, int *b);
+void	ft_quicksort(int i_tab[], int size);
+void	ft_bubsort(int i_tab[], int n);
+
 void	ft_bzero(void *s, size_t n);
 void	*ft_memset(void *s, int c, size_t len);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
@@ -119,6 +123,9 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 void	*ft_getnblist(t_list *lst, int nb);
 
+int		ft_sqrt(int n);
+int		ft_abs(int i);
+
 t_dlist	*ft_dlnew(void);
 t_dlist	*ft_dladdfirst(t_dlist *dl, void *content);
 t_dlist	*ft_dladdlast(t_dlist *dl, void *content);
@@ -126,9 +133,9 @@ t_node	*ft_dlpushfirst(t_dlist *dl);
 t_node	*ft_dlpushlast(t_dlist *dl);
 t_dlist	*ft_dlputfirst(t_dlist *dl, t_node *node);
 t_dlist	*ft_dlputlast(t_dlist *dl, t_node *node);
-int		ft_dlisordered(t_dlist *dl, int (*f)(void *, void *));
+int		ft_dlisordered(t_dlist *dl, int (*f)(t_node *, t_node *));
 void	*ft_dlgetcontent(t_dlist *dl, size_t i);
 void	ft_dlclear(t_dlist **dl);
-void	ft_printdlsti(t_dlist *dl, int rev, int (*f)(void *, void *));
+void	ft_printdlsti(t_dlist *dl, int rev, int (*f)(t_node *, t_node *));
 
 #endif

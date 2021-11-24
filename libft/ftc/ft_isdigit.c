@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:41:56 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/23 21:45:01 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/24 21:19:52 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_isnumber(char *s)
 {
 	if (!s)
 		return (0);
-	if (*s == '-')
+	if (*s == '-' && ft_isdigit(s[1]))
 		s++;
 	while (*s)
 	{
