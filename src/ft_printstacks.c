@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 00:29:44 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/22 18:35:12 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/28 03:16:46 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,29 +126,3 @@ void	print_stacks(t_dlist *a, t_dlist *b)
 	ft_printformatnode(NULL, l - 1, ' ');
 	ft_printf("a b\n");
 }
-
-// void	print_stacks(t_dlist *a, t_dlist *b)
-// {
-// 	int		la;
-// 	int		lb;
-// 	t_node	*current[2];
-// 	t_dlist	*dl_tab[2];
-
-// 	dl_tab[0] = a;
-// 	dl_tab[1] = b;
-// 	la = get_maxlcontent(a);
-// 	lb = get_maxlcontent(b);
-// 	if (!la)
-// 		la++;
-// 	if (!lb)
-// 		lb++;
-// 	current[0] = a->first;
-// 	current[1] = b->first;
-// 	print_stackline(dl_tab, current, la, lb);
-// 	ft_printformatnode(NULL, la, '-');
-// 	ft_printf(" ");
-// 	ft_printformatnode(NULL, lb, '-');
-// 	ft_putchar('\n');
-// 	ft_printformatnode(NULL, la - 1, ' ');
-// 	ft_printf("a b\n");
-// }

@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 22:03:49 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/24 22:50:40 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/25 00:49:09 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,19 @@ void	ft_solve5(t_dlist *a, t_dlist *b)
 {
 	if (ft_dlisordered(a, ft_isbigger))
 		return ;
-	do_op(a, b, PA);
-	do_op(a, b, PA);
-	ft_printf("%s\n%s\n", PA, PA);
+	do_op(a, b, PB);
+	if (a->length == 4)
+		do_op(a, b, PB);
 	ft_solve3(a, b);
+	if (b->length == 5 && ft_isbigger(b->first, b->first->next))
+		do_op(a, b, SB);
 	while (b->length)
 	{
-		if (ft_isbigger())
+		if (ft_isbigger(b->first, a->last))
+		{
+			do_op(a, b, PA);
+			do_op(a, b, RA);
+		}
 	}
 }
 
@@ -55,6 +61,8 @@ void	ft_solve(t_dlist *a, t_dlist *b)
 		ft_solve2(a, b);
 	if (a->length == 3)
 		ft_solve3(a, b);
+	if (a->length < 6)
+		ft_solve5(a, b);
 	else
 		ft_solvebig(a, b);
 }

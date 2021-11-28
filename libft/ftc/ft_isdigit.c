@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:41:56 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/24 21:19:52 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/25 17:11:03 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,14 @@ int	ft_isdigit(int c)
 
 int	ft_isnumber(char *s)
 {
+	int	i;
+
 	if (!s)
 		return (0);
-	if (*s == '-' && ft_isdigit(s[1]))
+	i = 0;
+	if (s[0] == '-' && ft_isdigit(s[1]))
 		s++;
-	while (*s)
-	{
-		if (*s < '0' || '9' < *s)
-			return (0);
-		s++;
-	}
-	return (1);
+	while (ft_isdigit(s[i]))
+		i++;
+	return (i);
 }

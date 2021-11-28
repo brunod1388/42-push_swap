@@ -6,16 +6,11 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 01:39:44 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/24 22:53:19 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/28 03:15:06 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_push_swap.h"
-
-// void	ft_push_subpart(t_dlist *a, t_dlist *b, int *i_tab)
-// {
-
-// }
 
 int	ft_ischunk(int n, int *i_tab, int size)
 {
@@ -86,22 +81,59 @@ void	ft_setchunk(t_dlist *a, t_dlist *b, int *i_tab, int size)
 	}
 }
 
+int	ft_ontheway(t_dlist *a, t_dlist *b, int nb_op, int n)
+{
+	char	*op;
+	int		to_swap;
+
+	if (nb_op < 0)
+		op = ft_strdup(RRB);
+	else
+		op = ft_strdup(RB);
+	if (nb_op < 0)
+		nb_op = -nb_op;
+	to_swap = 0;
+	while (nb_op--)
+	{
+		if (!to_swap && *(int *) b->first->content == n)
+		{
+			do_op(a, b, PA);
+			if (op[1] == 'r')
+				do_op (a, b, op);
+			to_swap = 1;
+		}
+		else
+			do_op (a, b, op);
+	}
+	free(op);
+	return (to_swap);
+}
+
 void	ft_solvebig(t_dlist *a, t_dlist *b)
 {
 	int	*it;
-	int	op;
+	int	nb_op;
+	int	to_swap;
 
 	it = ft_dltoit(a);
 	ft_quicksort(it, a->length);
 	ft_setchunk(a, b, it, a->length);
 	while (b->length)
 	{
-		op = ft_getclosest(b, it + b->length - 1, 1);
-		if (op > 0)
-			do_nbop(a, b, op, RB);
-		else if (op < 0)
-			do_nbop(a, b, -op, RRB);
+		to_swap = 0;
+		nb_op = ft_getclosest(b, it + b->length - 1, 1);
+		if (b->length > 1)
+			to_swap = ft_ontheway(a, b, nb_op, it[b->length - 2]);
+		else
+		{
+			if (nb_op > 0)
+				do_nbop(a, b, nb_op, RB);
+			else if (nb_op < 0)
+				do_nbop(a, b, -nb_op, RRB);
+		}
 		do_op(a, b, PA);
+		if (to_swap)
+			do_op(a, b, SA);
 	}
 	free(it);
 }

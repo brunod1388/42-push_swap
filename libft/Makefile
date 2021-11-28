@@ -10,6 +10,7 @@ SRCS	=	printf/ft_flag_process.c \
 			printf/ft_printf.c \
 			sort/ft_bubsort.c \
 			sort/ft_quicksort.c \
+			utils/ft_printarray.c \
 			math/ft_sqrt.c \
 			math/ft_abs.c \
 			ftc/ft_isalpha.c \

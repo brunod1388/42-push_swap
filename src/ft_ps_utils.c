@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 20:54:56 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/24 22:52:35 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/28 03:25:46 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,35 @@ static int	ft_isarok(int argc, char **argv)
 	return (1);
 }
 
+t_dlist	*ft_sttodl(char *s)
+{
+	t_dlist	*dl;
+	int		*pi;
+	int		i;
+
+	dl = ft_dlnew();
+	i = 0;
+	while (s[i])
+	{
+		if (ft_isnumber(s + i))
+		{
+			pi = malloc(sizeof(int));
+			*pi = ft_atoi(s + i);
+			if (!pi)
+				break ;
+			ft_dladdlast(dl, pi);
+			i += ft_isnumber(s + i);
+		}
+		else if (s[i] == ' ')
+			i++;
+		else
+			break ;
+	}
+	if (!pi || s[i])
+		ft_dlclear(&dl);
+	return (dl);
+}
+
 t_dlist	*ft_atodl(int argc, char **argv)
 {
 	t_dlist	*dl;
@@ -73,6 +102,8 @@ t_dlist	*ft_atodl(int argc, char **argv)
 
 	if (!ft_isarok(argc, argv))
 		return (NULL);
+	if (argc == 2)
+		return (ft_sttodl(argv[1]));
 	dl = ft_dlnew();
 	i = 0;
 	while (++i < argc)
@@ -88,12 +119,3 @@ t_dlist	*ft_atodl(int argc, char **argv)
 	}
 	return (dl);
 }
-
-// void	printArray(int arr[], int size)
-// {
-// 	int	i;
-
-// 	for (i=0; i < size; i++)
-// 		ft_printf("%d ", arr[i]);
-// 	ft_printf("\n");
-// }

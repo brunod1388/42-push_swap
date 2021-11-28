@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:21:49 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/24 22:48:25 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/28 03:22:28 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,9 +123,6 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 void	*ft_getnblist(t_list *lst, int nb);
 
-int		ft_sqrt(int n);
-int		ft_abs(int i);
-
 t_dlist	*ft_dlnew(void);
 t_dlist	*ft_dladdfirst(t_dlist *dl, void *content);
 t_dlist	*ft_dladdlast(t_dlist *dl, void *content);
@@ -137,5 +134,10 @@ int		ft_dlisordered(t_dlist *dl, int (*f)(t_node *, t_node *));
 void	*ft_dlgetcontent(t_dlist *dl, size_t i);
 void	ft_dlclear(t_dlist **dl);
 void	ft_printdlsti(t_dlist *dl, int rev, int (*f)(t_node *, t_node *));
+
+int		ft_sqrt(int n);
+int		ft_abs(int i);
+
+void	ft_print_int_array(int arr[], int size);
 
 #endif

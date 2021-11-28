@@ -1,37 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_push_swap.c                                     :+:      :+:    :+:   */
+/*   ft_printarray.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/21 19:30:50 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/28 03:27:51 by bgoncalv         ###   ########.fr       */
+/*   Created: 2021/11/28 03:20:19 by bgoncalv          #+#    #+#             */
+/*   Updated: 2021/11/28 03:26:56 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "ft_push_swap.h"
+#include "../libft.h"
 
-int	main(int argc, char **argv)
+void	ft_print_int_array(int arr[], int size)
 {
-	t_dlist	*a;
-	t_dlist	*b;
+	int	i;
 
-	if (argc == 1)
-		return (0);
-	a = ft_atodl(argc, argv);
-	b = ft_dlnew();
-	if (!a || !b)
-	{
-		ft_putstr("Error\n");
-		ft_dlclear(&a);
-		ft_dlclear(&b);
-		return (0);
-	}
-	ft_solve(a, b);
-	print_stacks(a,b);
-	ft_dlclear(&a);
-	ft_dlclear(&b);
-	return (0);
+	i = 0;
+	while (i < size)
+		ft_printf("%d ", arr[i++]);
+	ft_putchar('\n');
 }
