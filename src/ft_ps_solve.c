@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 22:03:49 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/25 00:49:09 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/03 23:33:17 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_solve2(t_dlist *a, t_dlist *b)
 {
-	if (a->first->content > a->first->next->content)
+	if (ft_isbigger(a->first, a->last))
 		do_op(a, b, SA);
 }
 
@@ -35,33 +35,54 @@ void	ft_solve3(t_dlist *a, t_dlist *b)
 		do_op(a, b, SA);
 }
 
+void	ft_pushsm(t_dlist *a, t_dlist *b, int n_op)
+{
+	int	rot;
+
+	rot = 1;
+	if (n_op < 0)
+	{
+		rot = -1;
+		n_op = -n_op;
+	}
+	while (n_op--)
+	{
+		if (rot > 0)
+			do_op(a, b, RA);
+		else
+			do_op(a, b, RRA);
+	}
+	do_op(a, b, PB);
+}
+
 void	ft_solve5(t_dlist *a, t_dlist *b)
 {
+	int	i;
+	int	*it;
+
+	i = 0;
+	it = ft_dltoit(a);
+	ft_quicksort(it, a->length);
 	if (ft_dlisordered(a, ft_isbigger))
 		return ;
-	do_op(a, b, PB);
-	if (a->length == 4)
-		do_op(a, b, PB);
+	while (a->length > 3)
+		ft_pushsm(a, b, ft_getclosest(a, it + i++, 1));
+	free(it);
 	ft_solve3(a, b);
-	if (b->length == 5 && ft_isbigger(b->first, b->first->next))
-		do_op(a, b, SB);
-	while (b->length)
-	{
-		if (ft_isbigger(b->first, a->last))
-		{
-			do_op(a, b, PA);
-			do_op(a, b, RA);
-		}
-	}
+	do_op(a, b, PA);
+	if (b->length)
+		do_op(a, b, PA);
+	if (ft_isbigger(a->first, a->first->next))
+		do_op(a, b, SA);
 }
 
 void	ft_solve(t_dlist *a, t_dlist *b)
 {
 	if (a->length == 2)
 		ft_solve2(a, b);
-	if (a->length == 3)
+	else if (a->length == 3)
 		ft_solve3(a, b);
-	if (a->length < 6)
+	else if (a->length < 6)
 		ft_solve5(a, b);
 	else
 		ft_solvebig(a, b);

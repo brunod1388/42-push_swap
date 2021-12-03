@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 19:30:50 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/28 03:27:51 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/03 23:34:50 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,9 @@ int	main(int argc, char **argv)
 	a = ft_atodl(argc, argv);
 	b = ft_dlnew();
 	if (!a || !b)
-	{
 		ft_putstr("Error\n");
-		ft_dlclear(&a);
-		ft_dlclear(&b);
-		return (0);
-	}
-	ft_solve(a, b);
-	print_stacks(a,b);
+	else
+		ft_solve(a, b);
 	ft_dlclear(&a);
 	ft_dlclear(&b);
 	return (0);

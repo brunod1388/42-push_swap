@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 00:28:34 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/24 22:47:51 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/03 22:30:44 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	swap(t_dlist *dl)
 
 void	do_nbop(t_dlist *a, t_dlist *b, int n, char *op)
 {
-	int		i;
+	int	i;
 
 	i = -1;
 	while (++i < n)
@@ -36,19 +36,19 @@ void	do_op(t_dlist *a, t_dlist *b, char *op)
 {
 	if (!ft_strcmp(op, SA) || !ft_strcmp(op, SS))
 		swap(a);
-	if (!ft_strcmp(op, SB) || !ft_strcmp(op, SS))
+	else if (!ft_strcmp(op, SB) || !ft_strcmp(op, SS))
 		swap(b);
-	if (!ft_strcmp(op, PA))
+	else if (!ft_strcmp(op, PA))
 		ft_dlputfirst(a, ft_dlpushfirst(b));
-	if (!ft_strcmp(op, PB))
+	else if (!ft_strcmp(op, PB))
 		ft_dlputfirst(b, ft_dlpushfirst(a));
-	if (!ft_strcmp(op, RA) || !ft_strcmp(op, RR))
+	else if (!ft_strcmp(op, RA) || !ft_strcmp(op, RR))
 		ft_dlputlast(a, ft_dlpushfirst(a));
-	if (!ft_strcmp(op, RB) || !ft_strcmp(op, RR))
+	else if (!ft_strcmp(op, RB) || !ft_strcmp(op, RR))
 		ft_dlputlast(b, ft_dlpushfirst(b));
-	if (!ft_strcmp(op, RRA) || !ft_strcmp(op, RRR))
+	else if (!ft_strcmp(op, RRA) || !ft_strcmp(op, RRR))
 		ft_dlputfirst(a, ft_dlpushlast(a));
-	if (!ft_strcmp(op, RRB) || !ft_strcmp(op, RRR))
+	else if (!ft_strcmp(op, RRB) || !ft_strcmp(op, RRR))
 		ft_dlputfirst(b, ft_dlpushlast(b));
 	ft_putstr(op);
 	ft_putchar('\n');
