@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:33:36 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/22 20:50:20 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/05 01:04:42 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	ft_process_format(t_fdata *fdata)
 		return (ft_hex_process(fdata));
 	else if (fdata->type == '%')
 		return (ft_percent_process(fdata));
+	else if (fdata->type == 'f')
+		return (ft_float_process(fdata));
 	return (-1);
 }
 

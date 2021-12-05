@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:33:36 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/17 23:48:47 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/05 01:12:24 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FT_PRINTF_H
 # include "../libft.h"
 # include <stdarg.h>
-# define FORMAT_LIST "cspdiuxX%"
+# define FORMAT_LIST "cfspdiuxX%"
 # define FLAGS_LIST "-# +0"
 
 typedef struct s_fdata
@@ -53,6 +53,7 @@ int		ft_hex_process(t_fdata *fdata);
 int		ft_char_process(t_fdata *fdata);
 int		ft_percent_process(t_fdata *fdata);
 int		ft_string_process(t_fdata *fdata);
+int		ft_float_process(t_fdata *fdata);
 
 int		ft_width_process(t_fdata *fdata);
 int		ft_space_process(t_fdata *fdata);

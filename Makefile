@@ -9,6 +9,13 @@ SRCS	=	ft_push_swap.c \
 			src/ft_ps_solve.c \
 			src/ft_ps_solve_big.c \
 			src/ft_printstacks.c
+SRCS_TESTER	=	tester.c \
+				src_tester/ft_ps_operations.c \
+				src/ft_ps_process.c \
+				src/ft_ps_utils.c \
+				src/ft_ps_solve.c \
+				src/ft_ps_solve_big.c \
+				src/ft_printstacks.c
 
 TEST_DL		=	test_dl
 TEST_DLSRCS	=	.tests/ft_dl_test.c
@@ -25,10 +32,11 @@ CC = gcc
 FLAGS = -Wall -Wextra -Werror
 
 OBJS = $(SRCS:.c=.o)
+OBJS_TESTER = $(SRCS_TESTER:.c=.o)
 
 $(NAME):	
 			$(MAKE) -C ./libft
-			$(CC) $(FLAGS) $(SRCS) $(LIBS) -o $(NAME) 
+			$(CC) $(FLAGS) $(SRCS) $(LIBS) -o $(NAME)
 
 all : 		$(NAME)
 
@@ -54,13 +62,12 @@ dltest:		$(TEST_DLOBJS)
 			rm -f $(TEST_DL)
 			$(CC) $(FLAGS) $(TEST_DLSRCS) $(LIBS) -o $(TEST_DL)
 
-# test:		$(OBJS)
-# 			make -C ./libft
-# 			$(CC) $(CFLAGS) $(INCLUDES) $(LIBS) -o $(TEST_NAME) $(OBJS) $(TESTS_SRCS)
-# 			./$(TEST_NAME)
+tester:		
+			$(MAKE) -C ./libft
+			$(CC) $(FLAGS) $(SRCS_TESTER) $(LIBS) -o tester 
 
-# retest:		fclean
-# 			rm -f $(TEST_NAME)
-# 			make test
+retest:		
+			rm -f tester
+			make tester
 
-PHONY : fclean all test re
+PHONY : fclean all re clean tester retest

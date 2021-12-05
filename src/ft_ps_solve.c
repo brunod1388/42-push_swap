@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 22:03:49 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/12/03 23:33:17 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/05 02:05:24 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	ft_solve3(t_dlist *a, t_dlist *b)
 		do_op(a, b, RRA);
 	if (ft_isbigger(a->first, a->first->next))
 		do_op(a, b, SA);
+	if (ft_isbigger(a->first, a->last))
+		do_op(a, b, RRA);
 }
 
 void	ft_pushsm(t_dlist *a, t_dlist *b, int n_op)
@@ -60,11 +62,13 @@ void	ft_solve5(t_dlist *a, t_dlist *b)
 	int	i;
 	int	*it;
 
+	if (a->length == 3)
+		ft_solve3(a, b);
+	if (ft_dlisordered(a, ft_isbigger))
+		return ;
 	i = 0;
 	it = ft_dltoit(a);
 	ft_quicksort(it, a->length);
-	if (ft_dlisordered(a, ft_isbigger))
-		return ;
 	while (a->length > 3)
 		ft_pushsm(a, b, ft_getclosest(a, it + i++, 1));
 	free(it);
