@@ -22,3 +22,4 @@ bin/*
 push_swap
 push_swap_test
 test_dl
+.tests
