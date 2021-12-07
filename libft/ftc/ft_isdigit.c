@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:41:56 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/12/05 02:57:31 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/07 16:13:31 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_isnumber(char *s)
 {
 	int	i;
 
-	if (!s)
+	if (!s || !*s)
 		return (0);
 	i = 0;
 	if (s[0] == '-' && ft_isdigit(s[1]))
@@ -29,6 +29,6 @@ int	ft_isnumber(char *s)
 	while (ft_isdigit(s[i]))
 		i++;
 	if (!ft_isdigit(s[i]))
-		return (0);
+		return (-i);
 	return (i);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_push_swap.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 19:34:29 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/12/04 03:53:00 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/07 17:31:11 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	ft_solve3(t_dlist *a, t_dlist *b);
 void	do_op(t_dlist *a, t_dlist *b, char *op);
 void	do_nbop(t_dlist *a, t_dlist *b, int n, char *op);
 t_dlist	*ft_atodl(int argc, char **argv);
+t_dlist	*ft_sttodl(char *s);
+int		ft_isdlok(t_dlist *dl);
 int		ft_isbigger(t_node *a, t_node *b);
 void	ft_solvebig(t_dlist *a, t_dlist *b);
 int		ft_getclosest(t_dlist *a, int *i_tab, int size);

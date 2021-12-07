@@ -3,34 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ps_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 20:54:56 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/12/05 02:51:57 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/07 17:30:58 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_push_swap.h"
 
-int	ft_iscommand(char *s)
+int	ft_isdlok(t_dlist *dl)
 {
-	if (!ft_strcmp(s, SA))
-		return (1);
-	if (!ft_strcmp(s, SB))
-		return (1);
-	if (!ft_strcmp(s, PA))
-		return (1);
-	if (!ft_strcmp(s, PB))
-		return (1);
-	if (!ft_strcmp(s, RA))
-		return (1);
-	if (!ft_strcmp(s, RB))
-		return (1);
-	if (!ft_strcmp(s, RRA))
-		return (1);
-	if (!ft_strcmp(s, RRB))
-		return (1);
-	return (0);
+	t_node	*node;
+	t_node	*current;
+	int		i;
+
+	node = dl->first;
+	while (node->next)
+	{
+		current = node;
+		while (current->next)
+		{
+			current = current->next;
+			i = *(int *) current->content;
+			if (i == *(int *) node->content)
+				return (0);
+		}
+		node = node->next;
+	}
+	return (1);
 }
 
 int	*ft_dltoit(t_dlist *dl)
@@ -78,11 +79,11 @@ t_dlist	*ft_sttodl(char *s)
 		if (ft_isnumber(s + i))
 		{
 			pi = malloc(sizeof(int));
-			*pi = ft_atoi(s + i);
 			if (!pi)
 				break ;
+			*pi = ft_atoi(s + i);
 			ft_dladdlast(dl, pi);
-			i += ft_isnumber(s + i);
+			i += ft_abs(ft_isnumber(s + i));
 		}
 		else if (s[i] == ' ')
 			i++;

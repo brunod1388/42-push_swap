@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_push_swap.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 19:30:50 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/12/05 02:58:06 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/07 17:28:09 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,12 @@ int	main(int argc, char **argv)
 
 	if (argc == 1)
 		return (0);
-	a = ft_atodl(argc, argv);
+	if (argc == 2)
+		a = ft_sttodl(argv[1]);
+	else
+		a = ft_atodl(argc, argv);
 	b = ft_dlnew();
-	if (!a || !b)
+	if (!a || !b || !ft_isdlok(a))
 		ft_putstr("Error\n");
 	else
 		ft_solve(a, b);
