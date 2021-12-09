@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:33:36 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/22 20:51:16 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/08 02:37:24 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,26 @@ int	ft_atoi(const char *str)
 	while (*str != '\0' && '0' <= *str && *str <= '9')
 	{
 		nb = *str - '0' + 10 * nb;
+		str++;
+	}
+	return (nb * is_negative);
+}
+
+long	ft_atol(const char *str)
+{
+	long	nb;
+	long	is_negative;
+
+	nb = 0;
+	is_negative = 1;
+	while (ft_isspace(*str))
+		str++;
+	if (*str == '-' || *str == '+')
+		if (*str++ == '-')
+			is_negative = -is_negative;
+	while (*str != '\0' && '0' <= *str && *str <= '9')
+	{
+		nb = (long)(*str - '0') + (10 * nb);
 		str++;
 	}
 	return (nb * is_negative);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ps_utils.c                                      :+:      :+:    :+:   */
+/*   ft_parsing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 20:54:56 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/12/07 17:30:58 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/08 02:29:09 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	ft_isarok(int argc, char **argv)
 
 	i = 0;
 	while (++i < argc)
-		if (!ft_isnumber(argv[i]))
+		if (ft_isnumber(argv[i]) < 1)
 			return (0);
 	return (1);
 }
@@ -110,8 +110,10 @@ t_dlist	*ft_atodl(int argc, char **argv)
 	while (++i < argc)
 	{
 		pi = malloc(sizeof(int));
-		if (!pi)
+		if (!pi || ft_atol(argv[i]) < INT_MIN || INT_MAX < ft_atol(argv[i]))
 		{
+			if (pi)
+				free(pi);
 			ft_dlclear(&dl);
 			return (NULL);
 		}

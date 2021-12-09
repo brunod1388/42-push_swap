@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ps_solve.c                                      :+:      :+:    :+:   */
+/*   ft_solve.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 22:03:49 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/12/05 02:05:24 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/08 02:25:49 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_solve3(t_dlist *a, t_dlist *b)
 		do_op(a, b, RRA);
 }
 
-void	ft_pushsm(t_dlist *a, t_dlist *b, int n_op)
+void	ft_pushsmallest(t_dlist *a, t_dlist *b, int n_op)
 {
 	int	rot;
 
@@ -70,7 +70,7 @@ void	ft_solve5(t_dlist *a, t_dlist *b)
 	it = ft_dltoit(a);
 	ft_quicksort(it, a->length);
 	while (a->length > 3)
-		ft_pushsm(a, b, ft_getclosest(a, it + i++, 1));
+		ft_pushsmallest(a, b, ft_getclosest(a, it + i++, 1));
 	free(it);
 	ft_solve3(a, b);
 	do_op(a, b, PA);
@@ -82,6 +82,8 @@ void	ft_solve5(t_dlist *a, t_dlist *b)
 
 void	ft_solve(t_dlist *a, t_dlist *b)
 {
+	if (ft_dlisordered(a, ft_isbigger))
+		return ;
 	if (a->length == 2)
 		ft_solve2(a, b);
 	else if (a->length == 3)

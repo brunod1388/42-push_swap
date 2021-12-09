@@ -3,18 +3,18 @@ LIBS	= -L./libft -lft
 
 NAME	=	push_swap
 SRCS	=	ft_push_swap.c \
-			src/ft_ps_operations.c \
-			src/ft_ps_process.c \
-			src/ft_ps_utils.c \
-			src/ft_ps_solve.c \
-			src/ft_ps_solve_big.c \
+			src/ft_operations.c \
+			src/ft_parsing.c \
+			src/ft_utils.c \
+			src/ft_solve.c \
+			src/ft_solve_big.c \
 			src/ft_printstacks.c
 SRCS_TESTER	=	tester.c \
 				src_tester/ft_ps_operations.c \
-				src/ft_ps_process.c \
-				src/ft_ps_utils.c \
-				src/ft_ps_solve.c \
-				src/ft_ps_solve_big.c \
+				src/ft_parsing.c \
+				src/ft_utils.c \
+				src/ft_solve.c \
+				src/ft_solve_big.c \
 				src/ft_printstacks.c
 
 TEST_DL		=	test_dl

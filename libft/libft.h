@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:21:49 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/28 03:22:28 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/08 02:28:10 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_atoi(const char *str);
+long	ft_atol(const char *str);
 int		ft_ilen(int n);
 
 char	*ft_strchr(const char *s, int c);
