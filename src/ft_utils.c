@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:33:07 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/12/08 23:56:55 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/09 18:25:23 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,23 @@ int	ft_ischunk(int n, int *i_tab, int size)
 	return (0);
 }
 
-void	ft_pushclosest(t_dlist *a, t_dlist *b, int op, int a_to_b)
+void	ft_pushclosest(t_stacks *stacks, int op, int a_to_b)
 {
 	if (a_to_b)
 	{
 		if (op > 0)
-			do_nbop(a, b, op, RA);
+			do_nbop(stacks, op, RA);
 		else if (op < 0)
-			do_nbop(a, b, -op, RRA);
-		do_op(a, b, PB);
+			do_nbop(stacks, -op, RRA);
+		do_op(stacks, PB);
 	}
 	else
 	{
 		if (op > 0)
-			do_nbop(a, b, op, RB);
+			do_nbop(stacks, op, RB);
 		else if (op < 0)
-			do_nbop(a, b, -op, RRB);
-		do_op(a, b, PA);
+			do_nbop(stacks, -op, RRB);
+		do_op(stacks, PA);
 	}
 }
 
@@ -75,4 +75,17 @@ int	ft_getclosest(t_dlist *a, int *i_tab, int size)
 int	ft_isbigger(t_node *a, t_node *b)
 {
 	return (*(int *)a->content > *(int *)b->content);
+}
+
+void	ft_printsol(t_stacks *stacks)
+{
+	t_node	*current;
+
+	current = stacks->solution->first;
+	while (current)
+	{
+		ft_putstr(current->content);
+		ft_putstr("\n");
+		current = current->next;
+	}
 }

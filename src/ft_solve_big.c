@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_solve_big.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 01:39:44 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/12/09 00:04:55 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/09 15:28:56 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,36 +66,36 @@ void	ft_process_info(t_info *info, int *count, int is_big)
 	}
 }
 
-void	ft_setchunk(t_dlist *a, t_dlist *b, int *i_tab, int size)
+void	ft_setchunk(t_stacks *stacks, int *i_tab, int size)
 {
 	t_info	info;
 	int		close_small;
 	int		close_big;
 
 	ft_infoinit(&info, i_tab, size);
-	while (a->length)
+	while (stacks->a->length)
 	{
 		if (info.small_chunk_id > -1)
-			close_small = ft_getclosest(a, info.chunk_tab[info.small_chunk_id],
+			close_small = ft_getclosest(stacks->a, info.chunk_tab[info.small_chunk_id],
 					info.chunk_size[info.small_chunk_id]);
 		if (info.big_chunk_id < info.nb_chunk)
-			close_big = ft_getclosest(a, info.chunk_tab[info.big_chunk_id],
+			close_big = ft_getclosest(stacks->a, info.chunk_tab[info.big_chunk_id],
 					info.chunk_size[info.big_chunk_id]);
 		if (ft_abs(close_big) <= ft_abs(close_small))
 		{
-			ft_pushclosest(a, b, close_big, 1);
+			ft_pushclosest(stacks, close_big, 1);
 			ft_process_info(&info, &close_big, 1);
 		}
 		else
 		{
-			ft_pushclosest(a, b, close_small, 1);
+			ft_pushclosest(stacks, close_small, 1);
 			ft_process_info(&info, &close_small, 0);
-			do_op(a, b, RB);
+			do_op(stacks, RB);
 		}
 	}
 }
 
-int	ft_ontheway(t_dlist *a, t_dlist *b, int nb_op, int n)
+int	ft_ontheway(t_stacks *stacks, int nb_op, int n)
 {
 	char	*op;
 	int		to_swap;
@@ -109,42 +109,42 @@ int	ft_ontheway(t_dlist *a, t_dlist *b, int nb_op, int n)
 	to_swap = 0;
 	while (nb_op--)
 	{
-		if (!to_swap && *(int *) b->first->content == n)
+		if (!to_swap && *(int *) stacks->b->first->content == n)
 		{
-			do_op(a, b, PA);
+			do_op(stacks, PA);
 			if (op[1] == 'r')
-				do_op (a, b, op);
+				do_op (stacks, op);
 			to_swap = 1;
 		}
 		else
-			do_op (a, b, op);
+			do_op (stacks, op);
 	}
 	free(op);
 	return (to_swap);
 }
 
-void	ft_solvebig(t_dlist *a, t_dlist *b)
+void	ft_solvebig(t_stacks *stacks)
 {
 	int	*it;
 	int	to_swap;
 	int	op;
 
-	it = ft_dltoit(a);
-	ft_quicksort(it, a->length);
-	ft_setchunk(a, b, it, a->length);
-	while (b->length)
+	it = ft_dltoit(stacks->a);
+	ft_quicksort(it, stacks->a->length);
+	ft_setchunk(stacks, it, stacks->a->length);
+	while (stacks->b->length)
 	{
 		to_swap = 0;
-		op = ft_getclosest(b, it + b->length - 1, 1);
-		if (b->length > 1)
+		op = ft_getclosest(stacks->b, it + stacks->b->length - 1, 1);
+		if (stacks->b->length > 1)
 		{
-			to_swap = ft_ontheway(a, b, op, it[b->length - 2]);
-			do_op(a, b, PA);
+			to_swap = ft_ontheway(stacks, op, it[stacks->b->length - 2]);
+			do_op(stacks, PA);
 		}
 		else
-			ft_pushclosest(a, b, op, 0);
+			ft_pushclosest(stacks, op, 0);
 		if (to_swap)
-			do_op(a, b, SA);
+			do_op(stacks, SA);
 	}
 	free(it);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ps_operations.c                                 :+:      :+:    :+:   */
+/*   ft_operations.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 00:28:34 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/12/03 22:30:44 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/09 18:18:40 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,33 +23,33 @@ static void	swap(t_dlist *dl)
 	dl->first->next->content = tmp;
 }
 
-void	do_nbop(t_dlist *a, t_dlist *b, int n, char *op)
+void	do_nbop(t_stacks *stacks, int n, char *op)
 {
 	int	i;
 
 	i = -1;
 	while (++i < n)
-		do_op(a, b, op);
+		do_op(stacks, op);
 }
 
-void	do_op(t_dlist *a, t_dlist *b, char *op)
+void	do_op(t_stacks *stacks, char *op)
 {
 	if (!ft_strcmp(op, SA) || !ft_strcmp(op, SS))
-		swap(a);
+		swap(stacks->a);
 	else if (!ft_strcmp(op, SB) || !ft_strcmp(op, SS))
-		swap(b);
+		swap(stacks->b);
 	else if (!ft_strcmp(op, PA))
-		ft_dlputfirst(a, ft_dlpushfirst(b));
+		ft_dlputfirst(stacks->a, ft_dlpushfirst(stacks->b));
 	else if (!ft_strcmp(op, PB))
-		ft_dlputfirst(b, ft_dlpushfirst(a));
+		ft_dlputfirst(stacks->b, ft_dlpushfirst(stacks->a));
 	else if (!ft_strcmp(op, RA) || !ft_strcmp(op, RR))
-		ft_dlputlast(a, ft_dlpushfirst(a));
+		ft_dlputlast(stacks->a, ft_dlpushfirst(stacks->a));
 	else if (!ft_strcmp(op, RB) || !ft_strcmp(op, RR))
-		ft_dlputlast(b, ft_dlpushfirst(b));
+		ft_dlputlast(stacks->b, ft_dlpushfirst(stacks->b));
 	else if (!ft_strcmp(op, RRA) || !ft_strcmp(op, RRR))
-		ft_dlputfirst(a, ft_dlpushlast(a));
+		ft_dlputfirst(stacks->a, ft_dlpushlast(stacks->a));
 	else if (!ft_strcmp(op, RRB) || !ft_strcmp(op, RRR))
-		ft_dlputfirst(b, ft_dlpushlast(b));
-	ft_putstr(op);
-	ft_putchar('\n');
+		ft_dlputfirst(stacks->b, ft_dlpushlast(stacks->b));
+	ft_dladdlast(stacks->solution, ft_strdup(op));
+	// ft_printf("%s\n", op);
 }

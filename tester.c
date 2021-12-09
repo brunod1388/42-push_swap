@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tester.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 19:30:50 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/12/05 02:08:55 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/09 18:05:20 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,28 +25,28 @@ typedef struct s_stat {
 
 int	ft_pstester(int nb, int min, int max)
 {
-	t_dlist	*a;
-	t_dlist	*b;
-	int		*i;
-	int		nb_mv;
+	int			*i;
+	int			nb_mv;
+	t_stacks	stacks;
 
-	a = ft_dlnew();
-	b = ft_dlnew();
+	stacks.a = ft_dlnew();
+	stacks.b = ft_dlnew();
+	stacks.solution = ft_dlnew();
 	while (nb--)
 	{
 		i = malloc(sizeof(int));
 		if (!i)
 			return (0);
 		*i = min + rand() % (max - min);
-		ft_dladdfirst(a, i);
+		ft_dladdfirst(stacks.a, i);
 	}
-	set_counter(0);
-	ft_solve(a, b);
-	nb_mv = get_counter();
-	if (!ft_dlisordered(a, ft_isbigger) || b->length)
+	ft_solve(&stacks);
+	nb_mv = stacks.solution->length;
+	if (!ft_dlisordered(stacks.a, ft_isbigger) || stacks.b->length)
 		nb_mv = -1;
-	ft_dlclear(&a);
-	ft_dlclear(&b);
+	ft_dlclear(&stacks.a);
+	ft_dlclear(&stacks.b);
+	ft_dlclear(&stacks.solution);
 	return (nb_mv);
 }
 

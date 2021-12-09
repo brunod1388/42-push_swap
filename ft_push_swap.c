@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_push_swap.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 19:30:50 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/12/08 01:06:47 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/09 18:23:52 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,23 @@
 
 int	main(int argc, char **argv)
 {
-	t_dlist	*a;
-	t_dlist	*b;
+	t_stacks	stacks;
 
 	if (argc == 1)
 		return (0);
 	if (argc == 2)
-		a = ft_sttodl(argv[1]);
+		stacks.a = ft_sttodl(argv[1]);
 	else
-		a = ft_atodl(argc, argv);
-	b = ft_dlnew();
-	if (!a || !b || !ft_isdlok(a))
+		stacks.a = ft_atodl(argc, argv);
+	stacks.b = ft_dlnew();
+	stacks.solution = ft_dlnew();
+	if (!stacks.a || !stacks.b || !ft_isdlok(stacks.a))
 		ft_putstr("Error\n");
 	else
-		ft_solve(a, b);
-	ft_dlclear(&a);
-	ft_dlclear(&b);
+		ft_solve(&stacks);
+	ft_printsol(&stacks);
+	ft_dlclear(&stacks.a);
+	ft_dlclear(&stacks.b);
+	ft_dlclear(&stacks.solution);
 	return (0);
 }

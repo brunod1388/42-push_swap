@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printstacks.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 00:29:44 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/28 03:16:46 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/09 15:27:10 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,16 @@ static void	ft_printformatnode(t_node *a, int l, char c)
 	free(s);
 }
 
-static void	print_stackline(t_dlist **dl, t_node **current, int l)
+static void	print_stackline(t_stacks *stacks, t_node **current, int l)
 {
 	size_t	i;
 
-	i = dl[1]->length;
-	if (dl[0]->length > dl[1]->length)
-		i = dl[0]->length;
+	i = stacks->b->length;
+	if (stacks->a->length > stacks->b->length)
+		i = stacks->a->length;
 	while (i)
 	{
-		if (i <= dl[0]->length)
+		if (i <= stacks->a->length)
 		{
 			ft_printformatnode(current[0], l, ' ');
 			current[0] = current[0]->next;
@@ -89,7 +89,7 @@ static void	print_stackline(t_dlist **dl, t_node **current, int l)
 		else
 			ft_printformatnode(NULL, l, ' ');
 		ft_putchar(' ');
-		if (i <= dl[1]->length)
+		if (i <= stacks->b->length)
 		{
 			ft_printformatnode(current[1], l, ' ');
 			current[1] = current[1]->next;
@@ -101,24 +101,21 @@ static void	print_stackline(t_dlist **dl, t_node **current, int l)
 	}
 }
 
-void	print_stacks(t_dlist *a, t_dlist *b)
+void	print_stacks(t_stacks *stacks)
 {
 	int		l;
 	int		lb;
 	t_node	*current[2];
-	t_dlist	*dl_tab[2];
 
-	dl_tab[0] = a;
-	dl_tab[1] = b;
-	l = get_maxlcontent(a);
-	lb = get_maxlcontent(b);
+	l = get_maxlcontent(stacks->a);
+	lb = get_maxlcontent(stacks->b);
 	if (lb > l)
 		l = lb;
 	if (!l)
 		l++;
-	current[0] = a->first;
-	current[1] = b->first;
-	print_stackline(dl_tab, current, l);
+	current[0] = stacks->a->first;
+	current[1] = stacks->b->first;
+	print_stackline(stacks, current, l);
 	ft_printformatnode(NULL, l, '-');
 	ft_printf(" ");
 	ft_printformatnode(NULL, l, '-');
