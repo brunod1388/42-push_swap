@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_push_swap.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/21 19:30:50 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/12/09 18:23:52 by bgoncalv         ###   ########.fr       */
+/*   Created: 2021/12/10 00:50:28 by bgoncalv          #+#    #+#             */
+/*   Updated: 2021/12/10 00:50:51 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

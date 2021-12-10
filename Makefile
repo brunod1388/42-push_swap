@@ -2,20 +2,25 @@ LIBFT	= ./libft/libft.a
 LIBS	= -L./libft -lft
 
 NAME	=	push_swap
-SRCS	=	ft_push_swap.c \
-			src/ft_operations.c \
+
+
+SRCS	=	src/ft_operations.c \
 			src/ft_parsing.c \
 			src/ft_utils.c \
 			src/ft_solve.c \
 			src/ft_solve_big.c \
-			src/ft_printstacks.c
+			src/ft_printstacks.c \
+			src/ft_opti.c \
+			src/ft_opti2.c
+
+SRCS_PS = 	ft_push_swap.c \
+				$(SRCS)
+
 SRCS_TESTER	=	tester.c \
-				src/ft_operations.c \
-				src/ft_parsing.c \
-				src/ft_utils.c \
-				src/ft_solve.c \
-				src/ft_solve_big.c \
-				src/ft_printstacks.c
+				$(SRCS)
+
+SRCS_CHECKER =	checker.c \
+				$(SRCS)
 
 CC = gcc
 
@@ -26,7 +31,7 @@ OBJS_TESTER = $(SRCS_TESTER:.c=.o)
 
 $(NAME):	
 			$(MAKE) -C ./libft
-			$(CC) $(FLAGS) $(SRCS) $(LIBS) -o $(NAME)
+			$(CC) $(FLAGS) $(SRCS_PS) $(LIBS) -o $(NAME)
 
 all : 		$(NAME)
 
@@ -42,11 +47,18 @@ fclean :	clean
 			$(MAKE) fclean -C ./libft
 			rm -rf $(NAME)
 
-tester:		
+checker :
 			$(MAKE) -C ./libft
-			$(CC) $(FLAGS) $(SRCS_TESTER) $(LIBS) -o tester 
+			$(CC) $(FLAGS) $(SRCS_CHECKER) $(LIBS) -o checker
 
-retest:		
+recheck :
+			rm -f checker
+			make checker
+tester :
+			$(MAKE) -C ./libft
+			$(CC) $(FLAGS) $(SRCS_TESTER) $(LIBS) -o tester
+
+retest :
 			rm -f tester
 			make tester
 

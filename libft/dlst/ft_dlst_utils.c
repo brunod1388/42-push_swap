@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 15:27:48 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/23 23:37:38 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/09 23:34:48 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,25 @@ void	ft_printdlsti(t_dlist *dl, int rev, int (*f)(t_node *, t_node *))
 	ft_printilist(dl, rev);
 	ft_printf("\n");
 	ft_printf("is ordered : %i\n", ft_dlisordered(dl, f));
+}
+
+t_dlist	*ft_dlcpy(t_dlist *dl, void *(*f)(void *))
+{
+	t_dlist	*dldst;
+	t_node	*node;
+
+	if (!dl || !f)
+		return (NULL);
+	dldst = ft_dlnew();
+	if (!dldst)
+		return (NULL);
+	if (!dl->length)
+		return (dldst);
+	node = dl->first;
+	while (node)
+	{
+		ft_dladdlast(dldst, f(node->content));
+		node = node->next;
+	}
+	return (dldst);
 }

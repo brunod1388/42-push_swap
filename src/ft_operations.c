@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_operations.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 00:28:34 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/12/09 18:18:40 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/10 00:46:58 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,4 @@ void	do_op(t_stacks *stacks, char *op)
 	else if (!ft_strcmp(op, RRB) || !ft_strcmp(op, RRR))
 		ft_dlputfirst(stacks->b, ft_dlpushlast(stacks->b));
 	ft_dladdlast(stacks->solution, ft_strdup(op));
-	// ft_printf("%s\n", op);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_solve_big.c                                     :+:      :+:    :+:   */
+/*   ft_solve_big2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 01:39:44 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/12/09 15:28:56 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/10 00:17:15 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ typedef struct s_info
 	int	big_count;
 }		t_info;
 
-void	ft_infoinit(t_info *info, int *i_tab, int size)
+void	ft_infoinit(t_info *info, int *i_tab, int size, int nb_chunk)
 {
 	int	i;
 
-	info->nb_chunk = 1 + ft_sqrt(size) / 2 + size / 100;
+	info->nb_chunk = nb_chunk;
 	info->big_chunk_id = info->nb_chunk / 2;
 	info->small_chunk_id = info->nb_chunk / 2 - 1;
 	i = 0;
@@ -66,13 +66,13 @@ void	ft_process_info(t_info *info, int *count, int is_big)
 	}
 }
 
-void	ft_setchunk(t_stacks *stacks, int *i_tab, int size)
+void	ft_setchunk(t_stacks *stacks, int *i_tab, int size, int nb_chunk)
 {
 	t_info	info;
 	int		close_small;
 	int		close_big;
 
-	ft_infoinit(&info, i_tab, size);
+	ft_infoinit(&info, i_tab, size, nb_chunk);
 	while (stacks->a->length)
 	{
 		if (info.small_chunk_id > -1)
@@ -123,7 +123,7 @@ int	ft_ontheway(t_stacks *stacks, int nb_op, int n)
 	return (to_swap);
 }
 
-void	ft_solvebig(t_stacks *stacks)
+void	ft_solvebig(t_stacks *stacks, int nb_chunk)
 {
 	int	*it;
 	int	to_swap;
@@ -131,7 +131,7 @@ void	ft_solvebig(t_stacks *stacks)
 
 	it = ft_dltoit(stacks->a);
 	ft_quicksort(it, stacks->a->length);
-	ft_setchunk(stacks, it, stacks->a->length);
+	ft_setchunk(stacks, it, stacks->a->length, nb_chunk);
 	while (stacks->b->length)
 	{
 		to_swap = 0;
@@ -147,4 +147,5 @@ void	ft_solvebig(t_stacks *stacks)
 			do_op(stacks, SA);
 	}
 	free(it);
+	ft_opti_rot(stacks);
 }

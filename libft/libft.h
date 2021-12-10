@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:21:49 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/12/08 02:28:10 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/10 00:12:10 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 void	*ft_getnblist(t_list *lst, int nb);
 
 t_dlist	*ft_dlnew(void);
+t_dlist	*ft_dlcpy(t_dlist *dl, void *(*f)(void*));
 t_dlist	*ft_dladdfirst(t_dlist *dl, void *content);
 t_dlist	*ft_dladdlast(t_dlist *dl, void *content);
 t_node	*ft_dlpushfirst(t_dlist *dl);

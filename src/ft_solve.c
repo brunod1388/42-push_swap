@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_solve.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgoncalv <bgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 22:03:49 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/12/09 17:48:48 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/10 00:47:16 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,5 @@ void	ft_solve(t_stacks *stacks)
 	else if (stacks->a->length < 6)
 		ft_solve5(stacks);
 	else
-		ft_solvebig(stacks);
+		ft_bigopti(stacks);
 }
