@@ -71,16 +71,21 @@ NAME	= libft.a
 
 RM		= rm -f
 
-_GREEN=\e[32m
-_YELLOW=\e[33m
+_BLUE=\e[32m
+_PURPLE=\e[33m
+_CYAN=\e[36m
+_END=\e[0m
+
+_BLUE=\e[34m
+_PURPLE=\e[35m
 _CYAN=\e[36m
 _END=\e[0m
 
 $(NAME):	$(OBJS)
-			@printf "Libft Objects	[$(_GREEN)✓$(_END)]\n"
+			@printf "Libft Objects	[$(_BLUE)✓$(_END)]\n"
 			@ar rc $(NAME) $(OBJS)
 			@ranlib $(NAME)
-			@printf "Libft		[$(_GREEN)✓$(_END)]\n"
+			@printf "Libft		[$(_BLUE)✓$(_END)]\n"
 
 all:		$(NAME)
 
@@ -88,10 +93,10 @@ re:			fclean $(NAME)
 
 clean:		
 			@$(RM) *.o ftc/*.o printf/*.o lst/*.o dlst/*.o
-			@printf "$(_YELLOW)libft object	deleted$(_END)\n"
+			@printf "$(_PURPLE)libft object	deleted$(_END)\n"
 
 fclean:		clean
 			@$(RM) $(NAME)
-			@printf "$(_YELLOW)libft		deleted$(_END)\n"
+			@printf "$(_PURPLE)libft		deleted$(_END)\n"
 
 .PHONY:		all re clean fclean bin cleantest test

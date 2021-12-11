@@ -27,16 +27,15 @@ FLAGS = -Wall -Wextra -Werror
 
 OBJS = $(SRCS:.c=.o)
 OBJS_TESTER = $(SRCS_TESTER:.c=.o)
-
-_GREEN=\e[32m
-_YELLOW=\e[33m
+_BLUE=\e[34m
+_PURPLE=\e[35m
 _CYAN=\e[36m
 _END=\e[0m
 
 $(NAME):	
 			$(MAKE) -C ./libft
 			@$(CC) $(FLAGS) $(SRCS_PS) $(LIBS) -o $(NAME)
-			@printf "push_swap	[$(_GREEN)✓$(_END)]\n"
+			@printf "push_swap	[$(_BLUE)✓$(_END)]\n"
 
 all : 		$(NAME)
 
@@ -46,45 +45,48 @@ re:			clean
 			$(MAKE) $(NAME)
 
 clean :
-			@printf "$(_YELLOW)Object cleaning...$(_END)\n"
+			@printf "$(_PURPLE)Object cleaning...$(_END)\n"
 			@rm -rf $(OBJS) $(NAME)
 
 fclean :	clean
 			$(MAKE) fclean -C ./libft
 			@rm -rf $(NAME)
-			@printf "$(_YELLOW)push_swap deleted!$(_END)\n"
+			@printf "$(_PURPLE)push_swap	deleted$(_END)\n"
 
 checker :
 			@$(MAKE) -C ./libft
 			@$(CC) $(FLAGS) $(SRCS_CHECKER) $(LIBS) -o checker
-			@printf "checker		[$(_GREEN)✓$(_END)]\n"
+			@printf "checker		[$(_BLUE)✓$(_END)]\n"
 
 recheck :
 			@rm -f checker
-			@printf "$(_YELLOW)checker deleted!$(_END)\n"
+			@printf "$(_PURPLE)checker deleted!$(_END)\n"
 			@make checker
 
 tester :
 			@$(MAKE) -C ./libft
 			@$(CC) $(FLAGS) $(SRCS_TESTER) $(LIBS) -o tester
-			@printf "tester		[$(_GREEN)✓$(_END)]\n"
+			@printf "tester		[$(_BLUE)✓$(_END)]\n"
 
 
 retest :
 			@rm -f tester
-			@printf "$(_YELLOW)tester deleted$(_END)\n"
+			@printf "$(_PURPLE)tester deleted$(_END)\n"
 			make tester
 
-full :		all tester checker
+full :		all
+			@$(CC) $(FLAGS) $(SRCS_PS) $(LIBS) -o $(NAME)
+			@printf "push_swap	[$(_BLUE)✓$(_END)]\n"
+			@$(CC) $(FLAGS) $(SRCS_TESTER) $(LIBS) -o tester
+			@printf "tester		[$(_BLUE)✓$(_END)]\n"
+			@$(CC) $(FLAGS) $(SRCS_CHECKER) $(LIBS) -o checker
+			@printf "checker		[$(_BLUE)✓$(_END)]\n"
 
-ffclean :	clean
-			$(MAKE) fclean -C ./libft
-			@rm -f push_swap
-			@printf "$(_YELLOW)push_swap	deleted$(_END)\n"
+ffclean :	fclean
 			@rm -f checker
-			@printf "$(_YELLOW)checker		deleted$(_END)\n"
+			@printf "$(_PURPLE)checker		deleted$(_END)\n"
 			@rm -f tester
-			@printf "$(_YELLOW)tester		deleted$(_END)\n"
+			@printf "$(_PURPLE)tester		deleted$(_END)\n"
 
 
 PHONY : fclean all re clean tester retest

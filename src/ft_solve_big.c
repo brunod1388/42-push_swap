@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_solve_big2.c                                    :+:      :+:    :+:   */
+/*   ft_solve_big.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 01:39:44 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/12/10 00:17:15 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/11 04:12:59 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 typedef struct s_info
 {
 	int	nb_chunk;
-	int	*chunk_tab[25];
+	int	*chk_tab[25];
 	int	chunk_size[25];
-	int	small_chunk_id;
-	int	big_chunk_id;
+	int	sm_chk_id;
+	int	big_chk_id;
 	int	small_count;
 	int	big_count;
 }		t_info;
@@ -28,17 +28,17 @@ void	ft_infoinit(t_info *info, int *i_tab, int size, int nb_chunk)
 	int	i;
 
 	info->nb_chunk = nb_chunk;
-	info->big_chunk_id = info->nb_chunk / 2;
-	info->small_chunk_id = info->nb_chunk / 2 - 1;
+	info->big_chk_id = info->nb_chunk / 2;
+	info->sm_chk_id = info->nb_chunk / 2 - 1;
 	i = 0;
-	info->chunk_tab[0] = i_tab;
+	info->chk_tab[0] = i_tab;
 	info->chunk_size[0] = size / info->nb_chunk + 1;
 	while (++i < info->nb_chunk)
 	{
 		info->chunk_size[i] = info->chunk_size[i - 1];
 		if (i == size % info->nb_chunk)
 			info->chunk_size[i]--;
-		info->chunk_tab[i] = info->chunk_tab[i - 1] + info->chunk_size[i - 1];
+		info->chk_tab[i] = info->chk_tab[i - 1] + info->chunk_size[i - 1];
 	}
 	info->small_count = 0;
 	info->big_count = 0;
@@ -48,18 +48,18 @@ void	ft_process_info(t_info *info, int *count, int is_big)
 {
 	if (is_big)
 	{
-		if (++info->big_count == info->chunk_size[info->big_chunk_id])
+		if (++info->big_count == info->chunk_size[info->big_chk_id])
 		{
-			if (++info->big_chunk_id == info->nb_chunk)
+			if (++info->big_chk_id == info->nb_chunk)
 				*count = INT_MAX;
 			info->big_count = 0;
 		}
 	}
 	else
 	{
-		if (++info->small_count == info->chunk_size[info->small_chunk_id])
+		if (++info->small_count == info->chunk_size[info->sm_chk_id])
 		{
-			if (--info->small_chunk_id < 0)
+			if (--info->sm_chk_id < 0)
 				*count = INT_MAX;
 			info->small_count = 0;
 		}
@@ -75,12 +75,12 @@ void	ft_setchunk(t_stacks *stacks, int *i_tab, int size, int nb_chunk)
 	ft_infoinit(&info, i_tab, size, nb_chunk);
 	while (stacks->a->length)
 	{
-		if (info.small_chunk_id > -1)
-			close_small = ft_getclosest(stacks->a, info.chunk_tab[info.small_chunk_id],
-					info.chunk_size[info.small_chunk_id]);
-		if (info.big_chunk_id < info.nb_chunk)
-			close_big = ft_getclosest(stacks->a, info.chunk_tab[info.big_chunk_id],
-					info.chunk_size[info.big_chunk_id]);
+		if (info.sm_chk_id > -1)
+			close_small = ft_getclosest(stacks->a, info.chk_tab[info.sm_chk_id],
+					info.chunk_size[info.sm_chk_id]);
+		if (info.big_chk_id < info.nb_chunk)
+			close_big = ft_getclosest(stacks->a, info.chk_tab[info.big_chk_id],
+					info.chunk_size[info.big_chk_id]);
 		if (ft_abs(close_big) <= ft_abs(close_small))
 		{
 			ft_pushclosest(stacks, close_big, 1);

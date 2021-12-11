@@ -6,11 +6,12 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 00:52:39 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/12/10 04:23:54 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/11 04:27:05 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
+#include <fcntl.h>
 
 int	ft_iscommand(char *s)
 {
@@ -39,15 +40,31 @@ int	ft_iscommand(char *s)
 	return (0);
 }
 
+void	ft_printsol_fd(t_stacks *stacks, int fd)
+{
+	t_node	*current;
+
+	current = stacks->solution->first;
+	while (current)
+	{
+		ft_putstr_fd(current->content, fd);
+		ft_putstr_fd("\n", fd);
+		current = current->next;
+	}
+}
+
 void	ft_getsol(t_stacks *stacks)
 {
 	char	*op;
+	int		fd;
 
+	fd = open("sol_txt", O_WRONLY);
 	while (1)
 	{
 		op = get_next_line(0);
 		if (!op)
 			break ;
+		ft_putstr_fd(op, fd);
 		op[ft_strlen(op) - 1] = 0;
 		if (!ft_iscommand(op))
 			break ;
@@ -58,6 +75,7 @@ void	ft_getsol(t_stacks *stacks)
 		ft_dlclear(&stacks->solution);
 		free(op);
 	}
+	close(fd);
 }
 
 void	ft_apply_sol(t_stacks *stacks)

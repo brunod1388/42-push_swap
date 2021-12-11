@@ -6,11 +6,10 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 00:50:28 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/12/10 00:50:51 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/11 04:25:22 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
 #include "ft_push_swap.h"
 
 int	main(int argc, char **argv)
