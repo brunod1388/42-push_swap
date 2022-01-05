@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:21:49 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/22 20:54:41 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2022/01/05 17:32:10 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	dlen = ft_strlen(s) - start;
 	if (dlen > len)
 		dlen = len;
-	else if (dlen < 0)
+	else if (dlen < len)
 		dlen = 0;
 	d = malloc(dlen + 1);
 	if (d == NULL)

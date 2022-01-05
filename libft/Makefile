@@ -92,7 +92,7 @@ all:		$(NAME)
 re:			fclean $(NAME)
 
 clean:		
-			@$(RM) *.o ftc/*.o printf/*.o lst/*.o dlst/*.o
+			@$(RM) */*.o *.o
 			@printf "$(_PURPLE)libft object	deleted$(_END)\n"
 
 fclean:		clean

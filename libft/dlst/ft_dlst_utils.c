@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 15:27:48 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/12/09 23:34:48 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2022/01/05 17:27:23 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_dlisordered(t_dlist *dl, int (*f)(t_node *, t_node *))
 	return (1);
 }
 
-void static	ft_printilist(t_dlist *dl, int rev)
+static void	ft_printilist(t_dlist *dl, int rev)
 {
 	t_node	*current;
 

@@ -6,7 +6,7 @@
 /*   By: bgoncalv <bgoncalv@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 17:33:53 by bgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/22 20:51:25 by bgoncalv         ###   ########.fr       */
+/*   Updated: 2022/01/05 17:33:19 by bgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	*ft_realloc(void *pt, size_t size)
 	{
 		len = ft_strlen((char *) pt);
 		ft_memcpy(dst, pt, len);
-		ft_bzero(&dst[len], size - len);
+		ft_bzero((void *)&dst[len], size - len);
 		free(pt);
 	}
 	return (dst);
